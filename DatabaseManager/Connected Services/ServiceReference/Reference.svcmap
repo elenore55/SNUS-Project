@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="bca22948-1486-426a-bc7d-dbdc3335714a" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:54144/DBManagerService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="DBManagerService1.xsd" MetadataType="Schema" ID="f6e36453-d983-434d-b0c1-e247633ef4f3" SourceId="1" SourceUrl="http://localhost:54144/DBManagerService.svc?xsd=xsd2" />
+    <MetadataFile FileName="DBManagerService.disco" MetadataType="Disco" ID="1e7f5b9f-165a-4c8b-aa0b-dfe312e25aeb" SourceId="1" SourceUrl="http://localhost:54144/DBManagerService.svc?disco" />
+    <MetadataFile FileName="DBManagerService.xsd" MetadataType="Schema" ID="ac65e188-12be-4338-952a-446ed457817d" SourceId="1" SourceUrl="http://localhost:54144/DBManagerService.svc?xsd=xsd0" />
+    <MetadataFile FileName="DBManagerService2.xsd" MetadataType="Schema" ID="ba873a83-183e-4dd2-b035-bdf3cc038078" SourceId="1" SourceUrl="http://localhost:54144/DBManagerService.svc?xsd=xsd3" />
+    <MetadataFile FileName="DBManagerService12.xsd" MetadataType="Schema" ID="6b7dace4-5355-4829-8e66-a91d5068ba61" SourceId="1" SourceUrl="http://localhost:54144/DBManagerService.svc?xsd=xsd1" />
+    <MetadataFile FileName="DBManagerService.wsdl" MetadataType="Wsdl" ID="b9b81103-056f-4b20-87d3-de1f87a17f74" SourceId="1" SourceUrl="http://localhost:54144/DBManagerService.svc?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

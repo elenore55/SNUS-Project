@@ -1,0 +1,7 @@
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\DatabaseManager\bin\Debug\DatabaseManager.exe.config
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\DatabaseManager\bin\Debug\DatabaseManager.exe
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\DatabaseManager\bin\Debug\DatabaseManager.pdb
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\DatabaseManager\obj\Debug\DatabaseManager.csproj.CoreCompileInputs.cache
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\DatabaseManager\obj\Debug\DatabaseManager.exe
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\DatabaseManager\obj\Debug\DatabaseManager.pdb
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\DatabaseManager\obj\Debug\DatabaseManager.csprojAssemblyReference.cache

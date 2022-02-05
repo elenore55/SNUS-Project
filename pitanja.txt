@@ -1,0 +1,5 @@
+Poštovani,
+imam nekoliko pitanja u vezi sa projektom iz SNUS-a.
+1. U kom trenutku je potrebno pokrenuti simulaciju sistema?
+2. Da li prilikom unosa informacija vezanih za RTU korisnik unosi i vremenski period na koji se šalje poruka i čemu služi ID kod RTU?
+3. Da li treba za nešto iskoristiti token koji se vrati korisniku kao rezultat LogIn-a?
