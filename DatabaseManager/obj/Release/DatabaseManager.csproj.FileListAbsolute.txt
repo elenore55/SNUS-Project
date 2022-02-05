@@ -1,0 +1,6 @@
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\DatabaseManager\bin\Release\DatabaseManager.exe.config
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\DatabaseManager\bin\Release\DatabaseManager.exe
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\DatabaseManager\bin\Release\DatabaseManager.pdb
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\DatabaseManager\obj\Release\DatabaseManager.csproj.CoreCompileInputs.cache
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\DatabaseManager\obj\Release\DatabaseManager.exe
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\DatabaseManager\obj\Release\DatabaseManager.pdb

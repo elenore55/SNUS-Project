@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.Text;
 
 namespace CoreWCFService
 {
     [ServiceContract]
+    [ServiceKnownType(typeof(List<ActivatedAlarm>))]
+    [ServiceKnownType(typeof(List<TagValue>))]
     public interface IReportManagerService
     {
         [OperationContract]

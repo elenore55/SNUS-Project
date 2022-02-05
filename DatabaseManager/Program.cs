@@ -18,7 +18,7 @@ namespace DatabaseManager
             string token = null;
             while (!loggedIn)
             {
-                Console.Write("Korisnicko ime >> ");
+                Console.Write("Korisničko ime >> ");
                 string username = Console.ReadLine();
                 Console.Write("Lozinka >> ");
                 string password = Console.ReadLine();
@@ -115,7 +115,7 @@ namespace DatabaseManager
             Console.Write("Naziv taga za brisanje >> ");
             string tagName = Console.ReadLine();
             bool success = proxy.RemoveTag(tagName, token);
-            Console.WriteLine((success) ? "Tag je uspesno obrisan" : "Greska pri brisanju taga");
+            Console.WriteLine((success) ? "Tag je uspešno obrisan" : "Greška pri brisanju taga");
         }
 
         private static void EnterOutputTagValue(DBManagerServiceClient proxy, string token)
@@ -189,7 +189,7 @@ namespace DatabaseManager
             tag.HighLimit = EnterLimitProperty("High");
             tag.Units = EnterUnitsProperty();
             bool success = proxy.AddTag(tag, token);
-            Console.WriteLine((success) ? "Tag je uspesno dodat" : "Greska pri dodavanju taga");
+            Console.WriteLine((success) ? "Tag je uspešno dodat" : "Greška pri dodavanju taga");
         }
 
         private static void AddAOTag(DBManagerServiceClient proxy, string token)
@@ -201,7 +201,7 @@ namespace DatabaseManager
             tag.HighLimit = EnterLimitProperty("High");
             tag.Units = EnterUnitsProperty();
             bool success = proxy.AddTag(tag, token);
-            Console.WriteLine((success) ? "Tag je uspesno dodat" : "Greska pri dodavanju taga");
+            Console.WriteLine((success) ? "Tag je uspešno dodat" : "Greška pri dodavanju taga");
         }
 
         private static void AddDITag(DBManagerServiceClient proxy, string token)
@@ -210,7 +210,7 @@ namespace DatabaseManager
             EnterGeneralTagProperties(tag);
             EnterInputTagProperties(tag);
             bool success = proxy.AddTag(tag, token);
-            Console.WriteLine((success) ? "Tag je uspesno dodat" : "Greska pri dodavanju taga");
+            Console.WriteLine((success) ? "Tag je uspešno dodat" : "Greška pri dodavanju taga");
         }
 
         private static void AddDOTag(DBManagerServiceClient proxy, string token)
@@ -219,7 +219,7 @@ namespace DatabaseManager
             EnterGeneralTagProperties(tag);
             EnterOutputTagProperties(tag);
             bool success = proxy.AddTag(tag, token);
-            Console.WriteLine((success) ? "Tag je uspesno dodat" : "Greska pri dodavanju taga");
+            Console.WriteLine((success) ? "Tag je uspešno dodat" : "Greška pri dodavanju taga");
         }
 
         private static void EnterGeneralTagProperties(Tag tag)
@@ -405,12 +405,12 @@ namespace DatabaseManager
 
         private static void RegisterUser(DBManagerServiceClient proxy, string token)
         {
-            Console.Write("Korisnicko ime >> ");
+            Console.Write("Korisničko ime >> ");
             string username = Console.ReadLine();
             Console.Write("Lozinka >> ");
             string password = Console.ReadLine();
             bool success = proxy.RegisterUser(username, password, token);
-            Console.WriteLine(success);
+            Console.WriteLine(success ? "Korisnik je uspešno registrovan" : "Korisnik sa zadatim korisničkim imenom već postoji");
         }
 
         private static bool ValidateInput(string input)

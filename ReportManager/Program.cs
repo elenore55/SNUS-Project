@@ -41,7 +41,7 @@ namespace ReportManager
                     case 6:
                         Console.Write("Naziv taga >> ");
                         string tagName = Console.ReadLine();
-                        DisplayTagValues(proxy.GetTagValues(tagName).ToList());
+                        DisplayTagValues(proxy.GetTagValues(tagName).ToList());  // max quota exceeded
                         break;
                 }
             }
@@ -104,7 +104,8 @@ namespace ReportManager
         {
             foreach (ActivatedAlarm alarm in alarms)
             {
-                Console.WriteLine(alarm);
+                Console.WriteLine($"Alarm for {alarm.Alarm.TagName}\t Type: {alarm.Alarm.Type}\t " +
+                    $"Priority: {alarm.Alarm.Priority}\t Threshold: {alarm.Alarm.Threshold}\t Activated at: {alarm.ActivatedAt}");
             }
         }
 
@@ -112,7 +113,7 @@ namespace ReportManager
         {
             foreach (TagValue val in values)
             {
-                Console.WriteLine(val);
+                Console.WriteLine($"{val.TagName}\t {val.TagType}\t Value: {Math.Round(val.Value, 2)}\t Arrived at: {val.ArrivedAt}");
             }
         }
     }

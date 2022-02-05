@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Security.Cryptography;
@@ -26,8 +25,7 @@ namespace RealTimeUnit
 
             Random rnd = new Random();
             double value = rnd.NextDouble() * (highLimit - lowLimit) + lowLimit;
-            int seconds = 5;
-            // Raditi ovo na svakih x sekundi?
+            int seconds = EnterSeconds();
             while (true)
             {
                 string message = $"id:{id},value:{value},address:{address}";
@@ -84,6 +82,20 @@ namespace RealTimeUnit
                 if (double.TryParse(input, out double limit))
                 {
                     return limit;
+                }
+                Console.WriteLine(INPUT_ERROR_MSG);
+            }
+        }
+
+        private static int EnterSeconds()
+        {
+            while (true)
+            {
+                Console.Write("Vremenski perion slanja poruke >> ");
+                string secondsStr = Console.ReadLine();
+                if (int.TryParse(secondsStr, out int seconds))
+                {
+                    return seconds;
                 }
                 Console.WriteLine(INPUT_ERROR_MSG);
             }

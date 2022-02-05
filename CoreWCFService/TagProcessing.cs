@@ -16,6 +16,7 @@ namespace CoreWCFService
         static readonly string scadaConfigPath = @"C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\scadaConfig.xml";
         static readonly string alarmsLogPath = @"C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\alarmsLog.txt";
         static readonly object locker = new object();
+        static readonly object alarmLock = new object();
 
         public delegate void TagValueChangedDelegate(InputTag tag, double value);
         public static event TagValueChangedDelegate OnTagValueChanged;
@@ -228,12 +229,15 @@ namespace CoreWCFService
 
         private static void AddActivatedAlarm(ActivatedAlarm activatedAlarm)
         {
-            activatedAlarms.Add(activatedAlarm);
-            using (StreamWriter writer = File.AppendText(alarmsLogPath))
+            lock (alarmLock)
             {
-                writer.WriteLine(activatedAlarm.ToString());
+                activatedAlarms.Add(activatedAlarm);
+                using (StreamWriter writer = File.AppendText(alarmsLogPath))
+                {
+                    writer.WriteLine(activatedAlarm.ToString());
+                }
+                SaveAlarmToDB(activatedAlarm);
             }
-            SaveAlarmToDB(activatedAlarm);
         }
 
         private static void SaveAlarmToDB(ActivatedAlarm activatedAlarm)
@@ -247,7 +251,6 @@ namespace CoreWCFService
                 }
                 catch(Exception)
                 {
-                    // mozda return false;
                 }
             }
         }

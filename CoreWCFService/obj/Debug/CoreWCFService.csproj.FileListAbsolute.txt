@@ -9,3 +9,4 @@ C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\CoreWCFSer
 C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\CoreWCFService\bin\EntityFramework.xml
 C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\CoreWCFService\bin\EntityFramework.SqlServer.xml
 C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\CoreWCFService\obj\Debug\CoreWCFService.csproj.CopyComplete
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\CoreWCFService\obj\Debug\CoreWCFService.csprojAssemblyReference.cache

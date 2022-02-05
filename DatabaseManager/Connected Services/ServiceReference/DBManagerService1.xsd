@@ -1,116 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/CoreWCFService" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CoreWCFService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:complexType name="Tag">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="IOAddress" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TagName" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="Tag" nillable="true" type="tns:Tag" />
-  <xs:complexType name="InputTag">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:Tag">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="Driver" nillable="true" type="tns:Driver" />
-          <xs:element minOccurs="0" name="OnScan" type="xs:boolean" />
-          <xs:element minOccurs="0" name="ScanTime" type="xs:int" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="InputTag" nillable="true" type="tns:InputTag" />
-  <xs:complexType name="Driver">
-    <xs:sequence />
-  </xs:complexType>
-  <xs:element name="Driver" nillable="true" type="tns:Driver" />
-  <xs:complexType name="SimulationDriver">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:Driver">
-        <xs:sequence />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="SimulationDriver" nillable="true" type="tns:SimulationDriver" />
-  <xs:complexType name="RealTimeDriver">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:Driver">
-        <xs:sequence />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="RealTimeDriver" nillable="true" type="tns:RealTimeDriver" />
-  <xs:complexType name="AI">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:InputTag">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="Alarms" nillable="true" type="tns:ArrayOfAlarm" />
-          <xs:element minOccurs="0" name="HighLimit" type="xs:double" />
-          <xs:element minOccurs="0" name="LowLimit" type="xs:double" />
-          <xs:element minOccurs="0" name="Units" nillable="true" type="xs:string" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="AI" nillable="true" type="tns:AI" />
-  <xs:complexType name="ArrayOfAlarm">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="Alarm" nillable="true" type="tns:Alarm" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfAlarm" nillable="true" type="tns:ArrayOfAlarm" />
-  <xs:complexType name="Alarm">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Priority" type="xs:int" />
-      <xs:element minOccurs="0" name="TagName" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Threshold" type="xs:double" />
-      <xs:element minOccurs="0" name="Type" type="tns:AlarmType" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="Alarm" nillable="true" type="tns:Alarm" />
-  <xs:simpleType name="AlarmType">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="low" />
-      <xs:enumeration value="high" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="AlarmType" nillable="true" type="tns:AlarmType" />
-  <xs:complexType name="DI">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:InputTag">
-        <xs:sequence />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="DI" nillable="true" type="tns:DI" />
-  <xs:complexType name="OutputTag">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:Tag">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="InitialValue" type="xs:double" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="OutputTag" nillable="true" type="tns:OutputTag" />
-  <xs:complexType name="AO">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:OutputTag">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="HighLimit" type="xs:double" />
-          <xs:element minOccurs="0" name="LowLimit" type="xs:double" />
-          <xs:element minOccurs="0" name="Units" nillable="true" type="xs:string" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="AO" nillable="true" type="tns:AO" />
-  <xs:complexType name="DO">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:OutputTag">
-        <xs:sequence />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="DO" nillable="true" type="tns:DO" />
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:54144/DBManagerService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CoreWCFService" />
+  <xs:import schemaLocation="http://localhost:54144/DBManagerService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:element name="LogIn">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LogInResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="LogInResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LogOut">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="token" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LogOutResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegisterUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="token" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegisterUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="RegisterUserResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOutputValue">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="tagName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="token" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOutputValueResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetOutputValueResult" type="xs:double" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddTag">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/CoreWCFService" minOccurs="0" name="tag" nillable="true" type="q1:Tag" />
+        <xs:element minOccurs="0" name="token" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddTagResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AddTagResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveTag">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="tagName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="token" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveTagResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="RemoveTagResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChangeOnScanValue">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="tagName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="token" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChangeOnScanValueResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOnScanValue">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="tagName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="token" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOnScanValueResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetOnScanValueResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddAlarm">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/CoreWCFService" minOccurs="0" name="alarm" nillable="true" type="q2:Alarm" />
+        <xs:element minOccurs="0" name="token" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddAlarmResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AddAlarmResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCurrentOutputValues">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="token" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCurrentOutputValuesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetCurrentOutputValuesResult" nillable="true" type="q3:ArrayOfKeyValueOfstringdouble" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetOutputTagValue">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="tagName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="value" type="xs:double" />
+        <xs:element minOccurs="0" name="token" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetOutputTagValueResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="SetOutputTagValueResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

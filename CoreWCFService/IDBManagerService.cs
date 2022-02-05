@@ -4,6 +4,7 @@ using System.ServiceModel;
 namespace CoreWCFService
 {
     [ServiceContract(SessionMode = SessionMode.Required)]
+    [ServiceKnownType(typeof(Dictionary<string, double>))]
     public interface IDBManagerService
     {
         [OperationContract(IsInitiating = true)]

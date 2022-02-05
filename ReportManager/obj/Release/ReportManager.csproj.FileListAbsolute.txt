@@ -1,0 +1,7 @@
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\ReportManager\bin\Release\ReportManager.exe.config
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\ReportManager\bin\Release\ReportManager.exe
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\ReportManager\bin\Release\ReportManager.pdb
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\ReportManager\obj\Release\ReportManager.csprojAssemblyReference.cache
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\ReportManager\obj\Release\ReportManager.csproj.CoreCompileInputs.cache
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\ReportManager\obj\Release\ReportManager.exe
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\ReportManager\obj\Release\ReportManager.pdb

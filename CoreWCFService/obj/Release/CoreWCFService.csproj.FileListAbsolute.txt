@@ -1,0 +1,12 @@
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\CoreWCFService\bin\CoreWCFService.dll.config
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\CoreWCFService\bin\CoreWCFService.dll
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\CoreWCFService\bin\CoreWCFService.pdb
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\CoreWCFService\bin\EntityFramework.dll
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\CoreWCFService\bin\EntityFramework.SqlServer.dll
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\CoreWCFService\bin\EntityFramework.xml
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\CoreWCFService\bin\EntityFramework.SqlServer.xml
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\CoreWCFService\obj\Release\CoreWCFService.csprojAssemblyReference.cache
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\CoreWCFService\obj\Release\CoreWCFService.csproj.CoreCompileInputs.cache
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\CoreWCFService\obj\Release\CoreWCFService.csproj.CopyComplete
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\CoreWCFService\obj\Release\CoreWCFService.dll
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\CoreWCFService\obj\Release\CoreWCFService.pdb

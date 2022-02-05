@@ -1,0 +1,7 @@
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\RealTimeUnit\bin\Release\RealTimeUnit.exe.config
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\RealTimeUnit\bin\Release\RealTimeUnit.exe
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\RealTimeUnit\bin\Release\RealTimeUnit.pdb
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\RealTimeUnit\obj\Release\RealTimeUnit.csprojAssemblyReference.cache
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\RealTimeUnit\obj\Release\RealTimeUnit.csproj.CoreCompileInputs.cache
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\RealTimeUnit\obj\Release\RealTimeUnit.exe
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\RealTimeUnit\obj\Release\RealTimeUnit.pdb

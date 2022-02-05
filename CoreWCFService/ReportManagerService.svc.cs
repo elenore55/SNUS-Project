@@ -6,17 +6,20 @@ namespace CoreWCFService
 {
     public class ReportManagerService : IReportManagerService
     {
+        private static readonly int LIMIT = 50;
         public List<ActivatedAlarm> GetAlarmsOfPriority(int priority)
         {
             List<ActivatedAlarm> allActivatedAlarms = TagProcessing.GetActivatedAlarms();
-            return allActivatedAlarms.Where(x => x.Alarm.Priority == priority).OrderBy(x => x.ActivatedAt).ToList();
+            List<ActivatedAlarm> retVal = allActivatedAlarms.Where(x => x.Alarm.Priority == priority).OrderBy(x => x.ActivatedAt).ToList();
+            return retVal.Skip(Math.Max(0, retVal.Count() - LIMIT)).ToList();
         }
 
         public List<ActivatedAlarm> GetAlarmsWithinPeriod(DateTime start, DateTime end)
         {
             List<ActivatedAlarm> allActivatedAlarms = TagProcessing.GetActivatedAlarms();
-            return allActivatedAlarms.Where(x => x.ActivatedAt >= start && x.ActivatedAt <= end)
+            List<ActivatedAlarm> retVal = allActivatedAlarms.Where(x => x.ActivatedAt >= start && x.ActivatedAt <= end)
                 .OrderBy(x => x.Alarm.Priority).OrderBy(x => x.ActivatedAt).ToList();
+            return retVal.Skip(Math.Max(0, retVal.Count() - LIMIT)).ToList();
         }
 
         public List<TagValue> GetLastValuesOfTags(string type)
@@ -42,13 +45,15 @@ namespace CoreWCFService
 
         public List<TagValue> GetTagValues(string tagName)
         {
-            return TagProcessing.GetTagValuesHistory(tagName);
+            List<TagValue> retVal = TagProcessing.GetTagValuesHistory(tagName);
+            return retVal.Skip(Math.Max(0, retVal.Count() - LIMIT)).ToList();
         }
 
         public List<TagValue> GetTagValuesWithinPeriod(DateTime start, DateTime end)
         {
             List<TagValue> tagValues = TagProcessing.GetAllTagValues();
-            return tagValues.Where(x => x.ArrivedAt >= start && x.ArrivedAt <= end).OrderBy(x => x.ArrivedAt).ToList();
+            List<TagValue> retVal =  tagValues.Where(x => x.ArrivedAt >= start && x.ArrivedAt <= end).OrderBy(x => x.ArrivedAt).ToList();
+            return retVal.Skip(Math.Max(0, retVal.Count() - LIMIT)).ToList();
         }
     }
 }
