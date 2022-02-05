@@ -4,4 +4,3 @@ C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\Trending\b
 C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\Trending\obj\Debug\Trending.csproj.CoreCompileInputs.cache
 C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\Trending\obj\Debug\Trending.exe
 C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\Trending\obj\Debug\Trending.pdb
-C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\Trending\obj\Debug\Trending.csprojAssemblyReference.cache

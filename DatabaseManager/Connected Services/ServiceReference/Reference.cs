@@ -468,7 +468,7 @@ namespace DatabaseManager.ServiceReference {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference.IDBManagerService")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference.IDBManagerService", SessionMode=System.ServiceModel.SessionMode.Required)]
     public interface IDBManagerService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/LogIn", ReplyAction="http://tempuri.org/IDBManagerService/LogInResponse")]
@@ -477,64 +477,64 @@ namespace DatabaseManager.ServiceReference {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/LogIn", ReplyAction="http://tempuri.org/IDBManagerService/LogInResponse")]
         System.Threading.Tasks.Task<string> LogInAsync(string username, string password);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/LogOut", ReplyAction="http://tempuri.org/IDBManagerService/LogOutResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsTerminating=true, IsInitiating=false, Action="http://tempuri.org/IDBManagerService/LogOut", ReplyAction="http://tempuri.org/IDBManagerService/LogOutResponse")]
         void LogOut(string token);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/LogOut", ReplyAction="http://tempuri.org/IDBManagerService/LogOutResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsTerminating=true, IsInitiating=false, Action="http://tempuri.org/IDBManagerService/LogOut", ReplyAction="http://tempuri.org/IDBManagerService/LogOutResponse")]
         System.Threading.Tasks.Task LogOutAsync(string token);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/RegisterUser", ReplyAction="http://tempuri.org/IDBManagerService/RegisterUserResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDBManagerService/RegisterUser", ReplyAction="http://tempuri.org/IDBManagerService/RegisterUserResponse")]
         bool RegisterUser(string username, string password, string token);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/RegisterUser", ReplyAction="http://tempuri.org/IDBManagerService/RegisterUserResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDBManagerService/RegisterUser", ReplyAction="http://tempuri.org/IDBManagerService/RegisterUserResponse")]
         System.Threading.Tasks.Task<bool> RegisterUserAsync(string username, string password, string token);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/GetOutputValue", ReplyAction="http://tempuri.org/IDBManagerService/GetOutputValueResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDBManagerService/GetOutputValue", ReplyAction="http://tempuri.org/IDBManagerService/GetOutputValueResponse")]
         double GetOutputValue(string tagName, string token);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/GetOutputValue", ReplyAction="http://tempuri.org/IDBManagerService/GetOutputValueResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDBManagerService/GetOutputValue", ReplyAction="http://tempuri.org/IDBManagerService/GetOutputValueResponse")]
         System.Threading.Tasks.Task<double> GetOutputValueAsync(string tagName, string token);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/AddTag", ReplyAction="http://tempuri.org/IDBManagerService/AddTagResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDBManagerService/AddTag", ReplyAction="http://tempuri.org/IDBManagerService/AddTagResponse")]
         bool AddTag(DatabaseManager.ServiceReference.Tag tag, string token);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/AddTag", ReplyAction="http://tempuri.org/IDBManagerService/AddTagResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDBManagerService/AddTag", ReplyAction="http://tempuri.org/IDBManagerService/AddTagResponse")]
         System.Threading.Tasks.Task<bool> AddTagAsync(DatabaseManager.ServiceReference.Tag tag, string token);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/RemoveTag", ReplyAction="http://tempuri.org/IDBManagerService/RemoveTagResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDBManagerService/RemoveTag", ReplyAction="http://tempuri.org/IDBManagerService/RemoveTagResponse")]
         bool RemoveTag(string tagName, string token);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/RemoveTag", ReplyAction="http://tempuri.org/IDBManagerService/RemoveTagResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDBManagerService/RemoveTag", ReplyAction="http://tempuri.org/IDBManagerService/RemoveTagResponse")]
         System.Threading.Tasks.Task<bool> RemoveTagAsync(string tagName, string token);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/ChangeOnScanValue", ReplyAction="http://tempuri.org/IDBManagerService/ChangeOnScanValueResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDBManagerService/ChangeOnScanValue", ReplyAction="http://tempuri.org/IDBManagerService/ChangeOnScanValueResponse")]
         void ChangeOnScanValue(string tagName, string token);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/ChangeOnScanValue", ReplyAction="http://tempuri.org/IDBManagerService/ChangeOnScanValueResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDBManagerService/ChangeOnScanValue", ReplyAction="http://tempuri.org/IDBManagerService/ChangeOnScanValueResponse")]
         System.Threading.Tasks.Task ChangeOnScanValueAsync(string tagName, string token);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/GetOnScanValue", ReplyAction="http://tempuri.org/IDBManagerService/GetOnScanValueResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDBManagerService/GetOnScanValue", ReplyAction="http://tempuri.org/IDBManagerService/GetOnScanValueResponse")]
         string GetOnScanValue(string tagName, string token);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/GetOnScanValue", ReplyAction="http://tempuri.org/IDBManagerService/GetOnScanValueResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDBManagerService/GetOnScanValue", ReplyAction="http://tempuri.org/IDBManagerService/GetOnScanValueResponse")]
         System.Threading.Tasks.Task<string> GetOnScanValueAsync(string tagName, string token);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/AddAlarm", ReplyAction="http://tempuri.org/IDBManagerService/AddAlarmResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDBManagerService/AddAlarm", ReplyAction="http://tempuri.org/IDBManagerService/AddAlarmResponse")]
         bool AddAlarm(DatabaseManager.ServiceReference.Alarm alarm, string token);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/AddAlarm", ReplyAction="http://tempuri.org/IDBManagerService/AddAlarmResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDBManagerService/AddAlarm", ReplyAction="http://tempuri.org/IDBManagerService/AddAlarmResponse")]
         System.Threading.Tasks.Task<bool> AddAlarmAsync(DatabaseManager.ServiceReference.Alarm alarm, string token);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/GetCurrentOutputValues", ReplyAction="http://tempuri.org/IDBManagerService/GetCurrentOutputValuesResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDBManagerService/GetCurrentOutputValues", ReplyAction="http://tempuri.org/IDBManagerService/GetCurrentOutputValuesResponse")]
         System.Collections.Generic.Dictionary<string, double> GetCurrentOutputValues(string token);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/GetCurrentOutputValues", ReplyAction="http://tempuri.org/IDBManagerService/GetCurrentOutputValuesResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDBManagerService/GetCurrentOutputValues", ReplyAction="http://tempuri.org/IDBManagerService/GetCurrentOutputValuesResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<string, double>> GetCurrentOutputValuesAsync(string token);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/SetOutputTagValue", ReplyAction="http://tempuri.org/IDBManagerService/SetOutputTagValueResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDBManagerService/SetOutputTagValue", ReplyAction="http://tempuri.org/IDBManagerService/SetOutputTagValueResponse")]
         bool SetOutputTagValue(string tagName, double value, string token);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/SetOutputTagValue", ReplyAction="http://tempuri.org/IDBManagerService/SetOutputTagValueResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IDBManagerService/SetOutputTagValue", ReplyAction="http://tempuri.org/IDBManagerService/SetOutputTagValueResponse")]
         System.Threading.Tasks.Task<bool> SetOutputTagValueAsync(string tagName, double value, string token);
     }
     

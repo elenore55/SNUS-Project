@@ -588,48 +588,48 @@
   <wsdl:message name="IDBManagerService_SetOutputTagValue_OutputMessage">
     <wsdl:part name="parameters" element="tns:SetOutputTagValueResponse" />
   </wsdl:message>
-  <wsdl:portType name="IDBManagerService">
-    <wsdl:operation name="LogIn">
+  <wsdl:portType msc:usingSession="true" name="IDBManagerService">
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="LogIn">
       <wsdl:input wsaw:Action="http://tempuri.org/IDBManagerService/LogIn" message="tns:IDBManagerService_LogIn_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDBManagerService/LogInResponse" message="tns:IDBManagerService_LogIn_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="LogOut">
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="true" name="LogOut">
       <wsdl:input wsaw:Action="http://tempuri.org/IDBManagerService/LogOut" message="tns:IDBManagerService_LogOut_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDBManagerService/LogOutResponse" message="tns:IDBManagerService_LogOut_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="RegisterUser">
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="RegisterUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IDBManagerService/RegisterUser" message="tns:IDBManagerService_RegisterUser_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDBManagerService/RegisterUserResponse" message="tns:IDBManagerService_RegisterUser_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetOutputValue">
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetOutputValue">
       <wsdl:input wsaw:Action="http://tempuri.org/IDBManagerService/GetOutputValue" message="tns:IDBManagerService_GetOutputValue_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDBManagerService/GetOutputValueResponse" message="tns:IDBManagerService_GetOutputValue_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="AddTag">
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="AddTag">
       <wsdl:input wsaw:Action="http://tempuri.org/IDBManagerService/AddTag" message="tns:IDBManagerService_AddTag_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDBManagerService/AddTagResponse" message="tns:IDBManagerService_AddTag_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="RemoveTag">
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="RemoveTag">
       <wsdl:input wsaw:Action="http://tempuri.org/IDBManagerService/RemoveTag" message="tns:IDBManagerService_RemoveTag_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDBManagerService/RemoveTagResponse" message="tns:IDBManagerService_RemoveTag_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ChangeOnScanValue">
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="ChangeOnScanValue">
       <wsdl:input wsaw:Action="http://tempuri.org/IDBManagerService/ChangeOnScanValue" message="tns:IDBManagerService_ChangeOnScanValue_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDBManagerService/ChangeOnScanValueResponse" message="tns:IDBManagerService_ChangeOnScanValue_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetOnScanValue">
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetOnScanValue">
       <wsdl:input wsaw:Action="http://tempuri.org/IDBManagerService/GetOnScanValue" message="tns:IDBManagerService_GetOnScanValue_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDBManagerService/GetOnScanValueResponse" message="tns:IDBManagerService_GetOnScanValue_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="AddAlarm">
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="AddAlarm">
       <wsdl:input wsaw:Action="http://tempuri.org/IDBManagerService/AddAlarm" message="tns:IDBManagerService_AddAlarm_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDBManagerService/AddAlarmResponse" message="tns:IDBManagerService_AddAlarm_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetCurrentOutputValues">
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="GetCurrentOutputValues">
       <wsdl:input wsaw:Action="http://tempuri.org/IDBManagerService/GetCurrentOutputValues" message="tns:IDBManagerService_GetCurrentOutputValues_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDBManagerService/GetCurrentOutputValuesResponse" message="tns:IDBManagerService_GetCurrentOutputValues_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="SetOutputTagValue">
+    <wsdl:operation msc:isInitiating="false" msc:isTerminating="false" name="SetOutputTagValue">
       <wsdl:input wsaw:Action="http://tempuri.org/IDBManagerService/SetOutputTagValue" message="tns:IDBManagerService_SetOutputTagValue_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDBManagerService/SetOutputTagValueResponse" message="tns:IDBManagerService_SetOutputTagValue_OutputMessage" />
     </wsdl:operation>

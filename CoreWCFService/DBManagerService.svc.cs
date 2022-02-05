@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 namespace CoreWCFService
-{
+{   
     public class DBManagerService : IDBManagerService
     {
         public bool AddAlarm(Alarm alarm, string token)
