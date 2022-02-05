@@ -478,64 +478,64 @@ namespace DatabaseManager.ServiceReference {
         System.Threading.Tasks.Task<string> LogInAsync(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/LogOut", ReplyAction="http://tempuri.org/IDBManagerService/LogOutResponse")]
-        void LogOut();
+        void LogOut(string token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/LogOut", ReplyAction="http://tempuri.org/IDBManagerService/LogOutResponse")]
-        System.Threading.Tasks.Task LogOutAsync();
+        System.Threading.Tasks.Task LogOutAsync(string token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/RegisterUser", ReplyAction="http://tempuri.org/IDBManagerService/RegisterUserResponse")]
-        bool RegisterUser(string username, string password);
+        bool RegisterUser(string username, string password, string token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/RegisterUser", ReplyAction="http://tempuri.org/IDBManagerService/RegisterUserResponse")]
-        System.Threading.Tasks.Task<bool> RegisterUserAsync(string username, string password);
+        System.Threading.Tasks.Task<bool> RegisterUserAsync(string username, string password, string token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/GetOutputValue", ReplyAction="http://tempuri.org/IDBManagerService/GetOutputValueResponse")]
-        double GetOutputValue(string tagName);
+        double GetOutputValue(string tagName, string token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/GetOutputValue", ReplyAction="http://tempuri.org/IDBManagerService/GetOutputValueResponse")]
-        System.Threading.Tasks.Task<double> GetOutputValueAsync(string tagName);
+        System.Threading.Tasks.Task<double> GetOutputValueAsync(string tagName, string token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/AddTag", ReplyAction="http://tempuri.org/IDBManagerService/AddTagResponse")]
-        bool AddTag(DatabaseManager.ServiceReference.Tag tag);
+        bool AddTag(DatabaseManager.ServiceReference.Tag tag, string token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/AddTag", ReplyAction="http://tempuri.org/IDBManagerService/AddTagResponse")]
-        System.Threading.Tasks.Task<bool> AddTagAsync(DatabaseManager.ServiceReference.Tag tag);
+        System.Threading.Tasks.Task<bool> AddTagAsync(DatabaseManager.ServiceReference.Tag tag, string token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/RemoveTag", ReplyAction="http://tempuri.org/IDBManagerService/RemoveTagResponse")]
-        bool RemoveTag(string tagName);
+        bool RemoveTag(string tagName, string token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/RemoveTag", ReplyAction="http://tempuri.org/IDBManagerService/RemoveTagResponse")]
-        System.Threading.Tasks.Task<bool> RemoveTagAsync(string tagName);
+        System.Threading.Tasks.Task<bool> RemoveTagAsync(string tagName, string token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/ChangeOnScanValue", ReplyAction="http://tempuri.org/IDBManagerService/ChangeOnScanValueResponse")]
-        void ChangeOnScanValue(string tagName);
+        void ChangeOnScanValue(string tagName, string token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/ChangeOnScanValue", ReplyAction="http://tempuri.org/IDBManagerService/ChangeOnScanValueResponse")]
-        System.Threading.Tasks.Task ChangeOnScanValueAsync(string tagName);
+        System.Threading.Tasks.Task ChangeOnScanValueAsync(string tagName, string token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/GetOnScanValue", ReplyAction="http://tempuri.org/IDBManagerService/GetOnScanValueResponse")]
-        string GetOnScanValue(string tagName);
+        string GetOnScanValue(string tagName, string token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/GetOnScanValue", ReplyAction="http://tempuri.org/IDBManagerService/GetOnScanValueResponse")]
-        System.Threading.Tasks.Task<string> GetOnScanValueAsync(string tagName);
+        System.Threading.Tasks.Task<string> GetOnScanValueAsync(string tagName, string token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/AddAlarm", ReplyAction="http://tempuri.org/IDBManagerService/AddAlarmResponse")]
-        bool AddAlarm(DatabaseManager.ServiceReference.Alarm alarm);
+        bool AddAlarm(DatabaseManager.ServiceReference.Alarm alarm, string token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/AddAlarm", ReplyAction="http://tempuri.org/IDBManagerService/AddAlarmResponse")]
-        System.Threading.Tasks.Task<bool> AddAlarmAsync(DatabaseManager.ServiceReference.Alarm alarm);
+        System.Threading.Tasks.Task<bool> AddAlarmAsync(DatabaseManager.ServiceReference.Alarm alarm, string token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/GetCurrentOutputValues", ReplyAction="http://tempuri.org/IDBManagerService/GetCurrentOutputValuesResponse")]
-        System.Collections.Generic.Dictionary<string, double> GetCurrentOutputValues();
+        System.Collections.Generic.Dictionary<string, double> GetCurrentOutputValues(string token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/GetCurrentOutputValues", ReplyAction="http://tempuri.org/IDBManagerService/GetCurrentOutputValuesResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<string, double>> GetCurrentOutputValuesAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<string, double>> GetCurrentOutputValuesAsync(string token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/SetOutputTagValue", ReplyAction="http://tempuri.org/IDBManagerService/SetOutputTagValueResponse")]
-        bool SetOutputTagValue(string tagName, double value);
+        bool SetOutputTagValue(string tagName, double value, string token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDBManagerService/SetOutputTagValue", ReplyAction="http://tempuri.org/IDBManagerService/SetOutputTagValueResponse")]
-        System.Threading.Tasks.Task<bool> SetOutputTagValueAsync(string tagName, double value);
+        System.Threading.Tasks.Task<bool> SetOutputTagValueAsync(string tagName, double value, string token);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -573,84 +573,84 @@ namespace DatabaseManager.ServiceReference {
             return base.Channel.LogInAsync(username, password);
         }
         
-        public void LogOut() {
-            base.Channel.LogOut();
+        public void LogOut(string token) {
+            base.Channel.LogOut(token);
         }
         
-        public System.Threading.Tasks.Task LogOutAsync() {
-            return base.Channel.LogOutAsync();
+        public System.Threading.Tasks.Task LogOutAsync(string token) {
+            return base.Channel.LogOutAsync(token);
         }
         
-        public bool RegisterUser(string username, string password) {
-            return base.Channel.RegisterUser(username, password);
+        public bool RegisterUser(string username, string password, string token) {
+            return base.Channel.RegisterUser(username, password, token);
         }
         
-        public System.Threading.Tasks.Task<bool> RegisterUserAsync(string username, string password) {
-            return base.Channel.RegisterUserAsync(username, password);
+        public System.Threading.Tasks.Task<bool> RegisterUserAsync(string username, string password, string token) {
+            return base.Channel.RegisterUserAsync(username, password, token);
         }
         
-        public double GetOutputValue(string tagName) {
-            return base.Channel.GetOutputValue(tagName);
+        public double GetOutputValue(string tagName, string token) {
+            return base.Channel.GetOutputValue(tagName, token);
         }
         
-        public System.Threading.Tasks.Task<double> GetOutputValueAsync(string tagName) {
-            return base.Channel.GetOutputValueAsync(tagName);
+        public System.Threading.Tasks.Task<double> GetOutputValueAsync(string tagName, string token) {
+            return base.Channel.GetOutputValueAsync(tagName, token);
         }
         
-        public bool AddTag(DatabaseManager.ServiceReference.Tag tag) {
-            return base.Channel.AddTag(tag);
+        public bool AddTag(DatabaseManager.ServiceReference.Tag tag, string token) {
+            return base.Channel.AddTag(tag, token);
         }
         
-        public System.Threading.Tasks.Task<bool> AddTagAsync(DatabaseManager.ServiceReference.Tag tag) {
-            return base.Channel.AddTagAsync(tag);
+        public System.Threading.Tasks.Task<bool> AddTagAsync(DatabaseManager.ServiceReference.Tag tag, string token) {
+            return base.Channel.AddTagAsync(tag, token);
         }
         
-        public bool RemoveTag(string tagName) {
-            return base.Channel.RemoveTag(tagName);
+        public bool RemoveTag(string tagName, string token) {
+            return base.Channel.RemoveTag(tagName, token);
         }
         
-        public System.Threading.Tasks.Task<bool> RemoveTagAsync(string tagName) {
-            return base.Channel.RemoveTagAsync(tagName);
+        public System.Threading.Tasks.Task<bool> RemoveTagAsync(string tagName, string token) {
+            return base.Channel.RemoveTagAsync(tagName, token);
         }
         
-        public void ChangeOnScanValue(string tagName) {
-            base.Channel.ChangeOnScanValue(tagName);
+        public void ChangeOnScanValue(string tagName, string token) {
+            base.Channel.ChangeOnScanValue(tagName, token);
         }
         
-        public System.Threading.Tasks.Task ChangeOnScanValueAsync(string tagName) {
-            return base.Channel.ChangeOnScanValueAsync(tagName);
+        public System.Threading.Tasks.Task ChangeOnScanValueAsync(string tagName, string token) {
+            return base.Channel.ChangeOnScanValueAsync(tagName, token);
         }
         
-        public string GetOnScanValue(string tagName) {
-            return base.Channel.GetOnScanValue(tagName);
+        public string GetOnScanValue(string tagName, string token) {
+            return base.Channel.GetOnScanValue(tagName, token);
         }
         
-        public System.Threading.Tasks.Task<string> GetOnScanValueAsync(string tagName) {
-            return base.Channel.GetOnScanValueAsync(tagName);
+        public System.Threading.Tasks.Task<string> GetOnScanValueAsync(string tagName, string token) {
+            return base.Channel.GetOnScanValueAsync(tagName, token);
         }
         
-        public bool AddAlarm(DatabaseManager.ServiceReference.Alarm alarm) {
-            return base.Channel.AddAlarm(alarm);
+        public bool AddAlarm(DatabaseManager.ServiceReference.Alarm alarm, string token) {
+            return base.Channel.AddAlarm(alarm, token);
         }
         
-        public System.Threading.Tasks.Task<bool> AddAlarmAsync(DatabaseManager.ServiceReference.Alarm alarm) {
-            return base.Channel.AddAlarmAsync(alarm);
+        public System.Threading.Tasks.Task<bool> AddAlarmAsync(DatabaseManager.ServiceReference.Alarm alarm, string token) {
+            return base.Channel.AddAlarmAsync(alarm, token);
         }
         
-        public System.Collections.Generic.Dictionary<string, double> GetCurrentOutputValues() {
-            return base.Channel.GetCurrentOutputValues();
+        public System.Collections.Generic.Dictionary<string, double> GetCurrentOutputValues(string token) {
+            return base.Channel.GetCurrentOutputValues(token);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<string, double>> GetCurrentOutputValuesAsync() {
-            return base.Channel.GetCurrentOutputValuesAsync();
+        public System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<string, double>> GetCurrentOutputValuesAsync(string token) {
+            return base.Channel.GetCurrentOutputValuesAsync(token);
         }
         
-        public bool SetOutputTagValue(string tagName, double value) {
-            return base.Channel.SetOutputTagValue(tagName, value);
+        public bool SetOutputTagValue(string tagName, double value, string token) {
+            return base.Channel.SetOutputTagValue(tagName, value, token);
         }
         
-        public System.Threading.Tasks.Task<bool> SetOutputTagValueAsync(string tagName, double value) {
-            return base.Channel.SetOutputTagValueAsync(tagName, value);
+        public System.Threading.Tasks.Task<bool> SetOutputTagValueAsync(string tagName, double value, string token) {
+            return base.Channel.SetOutputTagValueAsync(tagName, value, token);
         }
     }
 }

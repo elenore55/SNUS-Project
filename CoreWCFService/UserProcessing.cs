@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
-using System.ServiceModel;
 using System.Text;
-using System.Web;
 
 namespace CoreWCFService
 {
@@ -12,7 +9,7 @@ namespace CoreWCFService
     {
         private static Dictionary<string, User> authenticatedUsers = new Dictionary<string, User>();
 
-        public string LogIn(string username, string password)
+        public static string LogIn(string username, string password)
         {
             using (var db = new UserContext())
             {
@@ -30,12 +27,17 @@ namespace CoreWCFService
             return "Login failed";
         }
 
-        public void LogOut()
+        public static void LogOut(string token)
         {
-
+            authenticatedUsers.Remove(token);
         }
 
-        public bool RegisterUser(string username, string password)
+        public static bool IsAuthenticatedUser(string token)
+        {
+            return authenticatedUsers.ContainsKey(token);
+        }
+
+        public static bool RegisterUser(string username, string password)
         {
             string encryptedPassword = EncryptValue(password);
             User user = new User()
@@ -58,7 +60,7 @@ namespace CoreWCFService
             return true;
         }
 
-        private string EncryptValue(string value)
+        private static string EncryptValue(string value)
         {
             string saltValue = GenerateSalt();
             byte[] saltedPassword = Encoding.UTF8.GetBytes(saltValue + value);
@@ -69,7 +71,7 @@ namespace CoreWCFService
             }
         }
 
-        private string GenerateSalt()
+        private static string GenerateSalt()
         {
             RNGCryptoServiceProvider crypto = new RNGCryptoServiceProvider();
             byte[] salt = new byte[32];
@@ -77,7 +79,7 @@ namespace CoreWCFService
             return Convert.ToBase64String(salt);
         }
 
-        private bool ValidateEncryptedData(string valueToValidate, string valueFromDatabase)
+        private static bool ValidateEncryptedData(string valueToValidate, string valueFromDatabase)
         {
             string[] arrValues = valueFromDatabase.Split(':');
             string encryptedDbValue = arrValues[0];
@@ -91,7 +93,7 @@ namespace CoreWCFService
             }
         }
 
-        private string GenerateToken(string username)
+        private static string GenerateToken(string username)
         {
             RNGCryptoServiceProvider crypto = new RNGCryptoServiceProvider();
             byte[] randVal = new byte[32];

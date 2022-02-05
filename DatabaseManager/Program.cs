@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DatabaseManager.ServiceReference;
 
 namespace DatabaseManager
@@ -18,13 +15,14 @@ namespace DatabaseManager
             DBManagerServiceClient proxy = new DBManagerServiceClient();
 
             bool loggedIn = false;
+            string token = null;
             while (!loggedIn)
             {
                 Console.Write("Korisnicko ime >> ");
                 string username = Console.ReadLine();
                 Console.Write("Lozinka >> ");
                 string password = Console.ReadLine();
-                string token = proxy.LogIn(username, password);
+                token = proxy.LogIn(username, password);
                 if (token != "Login failed")
                     loggedIn = true;
                 else
@@ -51,28 +49,28 @@ namespace DatabaseManager
                 switch (input)
                 {
                     case "1":
-                        AddTag(proxy);
+                        AddTag(proxy, token);
                         break;
                     case "2":
-                        RemoveTag(proxy);
+                        RemoveTag(proxy, token);
                         break;
                     case "3":
-                        RegisterUser(proxy);
+                        RegisterUser(proxy, token);
                         break;
                     case "4":
-                        EnterOutputTagValue(proxy);
+                        EnterOutputTagValue(proxy, token);
                         break;
                     case "5":
-                        DisplayCurrentOutputTagValues(proxy);
+                        DisplayCurrentOutputTagValues(proxy, token);
                         break;
                     case "6":
-                        SetupScanProperty(proxy);
+                        SetupScanProperty(proxy, token);
                         break;
                     case "7":
-                        AddAlarm(proxy);
+                        AddAlarm(proxy, token);
                         break;
                     case "8":
-                        proxy.LogOut();
+                        proxy.LogOut(token);
                         loggedIn = false;
                         break;
                 }
@@ -81,7 +79,7 @@ namespace DatabaseManager
             Console.ReadKey();
         }
 
-        private static void AddTag(DBManagerServiceClient proxy)
+        private static void AddTag(DBManagerServiceClient proxy, string token)
         {
             string[] tagTypes = { "Analog input", "Analog output", "Digital input", "Digital output" };
             Console.WriteLine("Tip taga: ");
@@ -94,16 +92,17 @@ namespace DatabaseManager
             switch(type)
             {
                 case "1":
-                    AddAITag(proxy);
+                    AddAITag(proxy, token);
                     break;
                 case "2":
-                    AddAOTag(proxy);
+                    AddAOTag(proxy, token);
                     break;
                 case "3":
-                    AddDITag(proxy);
+                    AddDITag(proxy, token);
                     break;
                 case "4":
-                    AddDOTag(proxy);
+                    AddDOTag(proxy, token);
+                    AddDOTag(proxy, token);
                     break;
                 default:
                     Console.WriteLine(INPUT_ERROR_MSG);
@@ -111,19 +110,19 @@ namespace DatabaseManager
             }
         }
 
-        private static void RemoveTag(DBManagerServiceClient proxy)
+        private static void RemoveTag(DBManagerServiceClient proxy, string token)
         {
             Console.Write("Naziv taga za brisanje >> ");
             string tagName = Console.ReadLine();
-            bool success = proxy.RemoveTag(tagName);
+            bool success = proxy.RemoveTag(tagName, token);
             Console.WriteLine((success) ? "Tag je uspesno obrisan" : "Greska pri brisanju taga");
         }
 
-        private static void EnterOutputTagValue(DBManagerServiceClient proxy)
+        private static void EnterOutputTagValue(DBManagerServiceClient proxy, string token)
         {
             Console.Write("Naziv izlaznog taga >> ");
             string tagName = Console.ReadLine();
-            double currentValue = proxy.GetOutputValue(tagName);
+            double currentValue = proxy.GetOutputValue(tagName, token);
             if (currentValue == -1)
             {
                 Console.WriteLine("Izlazni tag sa unesenim nazivom ne postoji");
@@ -136,7 +135,7 @@ namespace DatabaseManager
                 string input = Console.ReadLine();
                 if (double.TryParse(input, out double value))
                 {
-                    bool success = proxy.SetOutputTagValue(tagName, value);
+                    bool success = proxy.SetOutputTagValue(tagName, value, token);
                     Console.WriteLine(success ? "Vrednost je uspešno postavljena" : "Vrednost nije postavljena");
                     return;
                 }
@@ -144,19 +143,19 @@ namespace DatabaseManager
             }
         }
 
-        private static void DisplayCurrentOutputTagValues(DBManagerServiceClient proxy)
+        private static void DisplayCurrentOutputTagValues(DBManagerServiceClient proxy, string token)
         {
-            foreach (KeyValuePair<string, double> entry in proxy.GetCurrentOutputValues())
+            foreach (KeyValuePair<string, double> entry in proxy.GetCurrentOutputValues(token))
             {
                 Console.WriteLine($"{entry.Key} -> {entry.Value}");
             }
         }
 
-        private static void SetupScanProperty(DBManagerServiceClient proxy)
+        private static void SetupScanProperty(DBManagerServiceClient proxy, string token)
         {
             Console.Write("Naziv ulaznog taga >> ");
             string tagName = Console.ReadLine();
-            string currentOnScanValue = proxy.GetOnScanValue(tagName);
+            string currentOnScanValue = proxy.GetOnScanValue(tagName, token);
             if (currentOnScanValue != "On" && currentOnScanValue != "Off")
             {
                 Console.WriteLine("Ne postoji ulazni tag sa zadatim imenom.");
@@ -175,13 +174,13 @@ namespace DatabaseManager
                 }
                 if (input == "y")
                 {
-                    proxy.ChangeOnScanValue(tagName);
+                    proxy.ChangeOnScanValue(tagName, token);
                 }
                 return;
             }
         }
 
-        private static void AddAITag(DBManagerServiceClient proxy)
+        private static void AddAITag(DBManagerServiceClient proxy, string token)
         {
             AI tag = new AI();
             EnterGeneralTagProperties(tag);
@@ -189,11 +188,11 @@ namespace DatabaseManager
             tag.LowLimit = EnterLimitProperty("Low");
             tag.HighLimit = EnterLimitProperty("High");
             tag.Units = EnterUnitsProperty();
-            bool success = proxy.AddTag(tag);
+            bool success = proxy.AddTag(tag, token);
             Console.WriteLine((success) ? "Tag je uspesno dodat" : "Greska pri dodavanju taga");
         }
 
-        private static void AddAOTag(DBManagerServiceClient proxy)
+        private static void AddAOTag(DBManagerServiceClient proxy, string token)
         {
             AO tag = new AO();
             EnterGeneralTagProperties(tag);
@@ -201,25 +200,25 @@ namespace DatabaseManager
             tag.LowLimit = EnterLimitProperty("Low");
             tag.HighLimit = EnterLimitProperty("High");
             tag.Units = EnterUnitsProperty();
-            bool success = proxy.AddTag(tag);
+            bool success = proxy.AddTag(tag, token);
             Console.WriteLine((success) ? "Tag je uspesno dodat" : "Greska pri dodavanju taga");
         }
 
-        private static void AddDITag(DBManagerServiceClient proxy)
+        private static void AddDITag(DBManagerServiceClient proxy, string token)
         {
             DI tag = new DI();
             EnterGeneralTagProperties(tag);
             EnterInputTagProperties(tag);
-            bool success = proxy.AddTag(tag);
+            bool success = proxy.AddTag(tag, token);
             Console.WriteLine((success) ? "Tag je uspesno dodat" : "Greska pri dodavanju taga");
         }
 
-        private static void AddDOTag(DBManagerServiceClient proxy)
+        private static void AddDOTag(DBManagerServiceClient proxy, string token)
         {
             DO tag = new DO();
             EnterGeneralTagProperties(tag);
             EnterOutputTagProperties(tag);
-            bool success = proxy.AddTag(tag);
+            bool success = proxy.AddTag(tag, token);
             Console.WriteLine((success) ? "Tag je uspesno dodat" : "Greska pri dodavanju taga");
         }
 
@@ -344,7 +343,7 @@ namespace DatabaseManager
             return Console.ReadLine();
         }
 
-        private static void AddAlarm(DBManagerServiceClient proxy)
+        private static void AddAlarm(DBManagerServiceClient proxy, string token)
         {
             Console.Write("Tag name >> ");
             string tagName = Console.ReadLine();
@@ -355,7 +354,7 @@ namespace DatabaseManager
                 Threshold = EnterAlarmThreshold(),
                 TagName = tagName
             };
-            proxy.AddAlarm(alarm);
+            proxy.AddAlarm(alarm, token);
         }
 
         private static AlarmType EnterAlarmType()
@@ -404,13 +403,13 @@ namespace DatabaseManager
             }
         }
 
-        private static void RegisterUser(DBManagerServiceClient proxy)
+        private static void RegisterUser(DBManagerServiceClient proxy, string token)
         {
             Console.Write("Korisnicko ime >> ");
             string username = Console.ReadLine();
             Console.Write("Lozinka >> ");
             string password = Console.ReadLine();
-            bool success = proxy.RegisterUser(username, password);
+            bool success = proxy.RegisterUser(username, password, token);
             Console.WriteLine(success);
         }
 

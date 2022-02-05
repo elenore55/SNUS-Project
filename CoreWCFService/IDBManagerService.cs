@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
 using System.ServiceModel;
-using System.Text;
 
 namespace CoreWCFService
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IDBManagerService" in both code and config file together.
     [ServiceContract]
     public interface IDBManagerService
     {
@@ -15,33 +10,33 @@ namespace CoreWCFService
         string LogIn(string username, string password);
 
         [OperationContract]
-        void LogOut();
+        void LogOut(string token);
 
         [OperationContract]
-        bool RegisterUser(string username, string password);
+        bool RegisterUser(string username, string password, string token);
 
         [OperationContract]
-        double GetOutputValue(string tagName);
+        double GetOutputValue(string tagName, string token);
 
         [OperationContract]
-        bool AddTag(Tag tag);
+        bool AddTag(Tag tag, string token);
 
         [OperationContract]
-        bool RemoveTag(string tagName);
+        bool RemoveTag(string tagName, string token);
 
         [OperationContract]
-        void ChangeOnScanValue(string tagName);
+        void ChangeOnScanValue(string tagName, string token);
 
         [OperationContract]
-        string GetOnScanValue(string tagName);
+        string GetOnScanValue(string tagName, string token);
 
         [OperationContract]
-        bool AddAlarm(Alarm alarm);
+        bool AddAlarm(Alarm alarm, string token);
 
         [OperationContract]
-        Dictionary<string, double> GetCurrentOutputValues();
+        Dictionary<string, double> GetCurrentOutputValues(string token);
 
         [OperationContract]
-        bool SetOutputTagValue(string tagName, double value);
+        bool SetOutputTagValue(string tagName, double value, string token);
     }
 }

@@ -22,18 +22,12 @@ namespace CoreWCFService
         public delegate void AlarmTriggeredDelegate(Alarm alarm);
         public static event AlarmTriggeredDelegate OnAlarmTriggered;
 
-        public TagProcessing()
-        {
-            LoadConfiguration();
-            Simulate();
-        }
-
-        public List<ActivatedAlarm> GetActivatedAlarms()
+        public static List<ActivatedAlarm> GetActivatedAlarms()
         {
             return activatedAlarms;
         }
 
-        public List<TagValue> GetTagValuesHistory(string tagName)
+        public static List<TagValue> GetTagValuesHistory(string tagName)
         {
             using (var db = new TagValueContext())
             {
@@ -44,7 +38,7 @@ namespace CoreWCFService
             }
         } 
             
-        public bool AddTag(Tag tag)
+        public static bool AddTag(Tag tag)
         {
             if (currentValues.ContainsKey(tag.TagName))
                 return false;
@@ -54,7 +48,7 @@ namespace CoreWCFService
             return true;
         }
 
-        public bool RemoveTag(string tagName)
+        public static bool RemoveTag(string tagName)
         {
             for (int i = 0; i < tags.Count; i++)
             {
@@ -74,7 +68,7 @@ namespace CoreWCFService
             return false;
         }
 
-        public void ChangeOnScanValue(string tagName)
+        public static void ChangeOnScanValue(string tagName)
         {
             for (int i = 0; i < tags.Count; i++)
             {
@@ -88,7 +82,7 @@ namespace CoreWCFService
             }
         }
 
-        public string GetOnScanValue(string tagName)
+        public static string GetOnScanValue(string tagName)
         {
             foreach (Tag tag in tags)
             {
@@ -100,7 +94,7 @@ namespace CoreWCFService
             return "Non-existing tag";
         }
 
-        public bool SetOutputTagValue(string tagName, double value)
+        public static bool SetOutputTagValue(string tagName, double value)
         {
             foreach (Tag tag in tags)
             {
@@ -115,18 +109,18 @@ namespace CoreWCFService
             return false;
         }
 
-        public double GetOutputTagValue(string tagName)
+        public static double GetOutputTagValue(string tagName)
         {
             if (currentValues.ContainsKey(tagName)) return currentValues[tagName];
             return -1;
         }
 
-        public Dictionary<string, double> GetCurrentValues()
+        public static Dictionary<string, double> GetCurrentValues()
         {
             return currentValues;
         }
 
-        public bool EnterOutputTagValue(string tagName, double value)
+        public static bool EnterOutputTagValue(string tagName, double value)
         {
             if (!currentValues.ContainsKey(tagName))
                 return false;
@@ -135,7 +129,7 @@ namespace CoreWCFService
             return true;
         }
 
-        public bool AddAlarm(Alarm alarm)
+        public static bool AddAlarm(Alarm alarm)
         {
             for (int i = 0; i < tags.Count; i++)
             {
@@ -153,7 +147,7 @@ namespace CoreWCFService
             return false;
         }
 
-        public void Simulate()
+        public static void Simulate()
         {
             for (int i = 0; i < tags.Count; i++)
             {
@@ -166,7 +160,7 @@ namespace CoreWCFService
             }
         }
 
-        private void SimulateInputTag(InputTag tag)
+        private static void SimulateInputTag(InputTag tag)
         {
             while (true)
             {
@@ -208,7 +202,7 @@ namespace CoreWCFService
             }
         }
 
-        private void SaveTagValueToDB(Tag tag, double value)
+        private static void SaveTagValueToDB(Tag tag, double value)
         {
             using (var db = new TagValueContext())
             {
@@ -224,7 +218,7 @@ namespace CoreWCFService
             }
         }
 
-        public List<TagValue> GetAllTagValues()
+        public static List<TagValue> GetAllTagValues()
         {
             using (var db = new TagValueContext())
             {
@@ -232,7 +226,7 @@ namespace CoreWCFService
             }
         }
 
-        private void AddActivatedAlarm(ActivatedAlarm activatedAlarm)
+        private static void AddActivatedAlarm(ActivatedAlarm activatedAlarm)
         {
             activatedAlarms.Add(activatedAlarm);
             using (StreamWriter writer = File.AppendText(alarmsLogPath))
@@ -242,7 +236,7 @@ namespace CoreWCFService
             SaveAlarmToDB(activatedAlarm);
         }
 
-        private void SaveAlarmToDB(ActivatedAlarm activatedAlarm)
+        private static void SaveAlarmToDB(ActivatedAlarm activatedAlarm)
         {
             using (var db = new AlarmContext())
             {
@@ -258,7 +252,7 @@ namespace CoreWCFService
             }
         }
 
-        private void LoadConfiguration()
+        public static void LoadConfiguration()
         {
             XElement xmlData = XElement.Load(scadaConfigPath);
             var AITags = xmlData.Descendants("AI");
@@ -355,7 +349,7 @@ namespace CoreWCFService
             }
         }
 
-        private void SaveConfiguration()
+        private static void SaveConfiguration()
         {
             XElement tagsXML = new XElement("tags",
                 from dot in (from t in tags where t is DO select (DO)t)

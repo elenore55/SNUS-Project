@@ -1,6 +1,8 @@
 <tags>
   <DO tagName="ulazni_ventil" description="Ventil za punjenje bazena" IOAddress="2" initialValue="1">1</DO>
+  <DO tagName="output1" description="Some output" IOAddress="5" initialValue="0">0</DO>
   <DI tagName="moj_tag" description="Ovo je moj Tag" IOAddress="3" driver="SimulationDriver" scanTime="3" onScan="true">0</DI>
-  <AI tagName="nivo_vode" description="Nivo vode u bazenu" IOAddress="S" driver="SimulationDriver" scanTime="4" onScan="true" lowLimit="10" highLimit="100" units="litre">58.778525229247322<alarms><alarm type="high" priority="3" threshold="80" /><alarm type="low" priority="2" threshold="20" /></alarms></AI>
+  <DI tagName="digital_inp" description="Some digital input" IOAddress="C" driver="SimulationDriver" scanTime="6" onScan="false">0</DI>
+  <AI tagName="nivo_vode" description="Nivo vode u bazenu" IOAddress="S" driver="SimulationDriver" scanTime="4" onScan="true" lowLimit="10" highLimit="100" units="litre">45.399049973954689<alarms><alarm type="high" priority="3" threshold="80" /><alarm type="low" priority="2" threshold="20" /></alarms></AI>
   <AI tagName="nivo_benzina" description="Nivo benzina u rezervoaru" IOAddress="C" driver="SimulationDriver" scanTime="4" onScan="true" lowLimit="15" highLimit="55" units="litre">15.643446504023093<alarms><alarm type="low" priority="2" threshold="25" /></alarms></AI>
 </tags>

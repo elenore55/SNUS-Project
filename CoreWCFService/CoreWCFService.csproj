@@ -84,6 +84,7 @@
     <Compile Include="AlarmDisplayService.svc.cs">
       <DependentUpon>AlarmDisplayService.svc</DependentUpon>
     </Compile>
+    <Content Include="App_Code\Initializer.cs" />
     <Compile Include="DBManagerService.svc.cs">
       <DependentUpon>DBManagerService.svc</DependentUpon>
     </Compile>
