@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ReportManager.ServiceReference;
 
 namespace ReportManager
@@ -73,7 +71,7 @@ namespace ReportManager
             var cultureInfo = new CultureInfo("sr-Latn-CS");
             while (true)
             {
-                Console.Write($"Unesite {type} datum i vreme (dd/MM/yyyy HH:mm)");
+                Console.Write($"Unesite {type} datum i vreme (dd/MM/yyyy HH:mm) ");
                 string input = Console.ReadLine();
                 try
                 {

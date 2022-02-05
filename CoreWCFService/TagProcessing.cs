@@ -33,7 +33,7 @@ namespace CoreWCFService
             using (var db = new TagValueContext())
             {
                 return (from tv in db.TagValues
-                        where tv.TagName == tagName
+                        where tv.TagName.Equals(tagName)
                         orderby tv.Value
                         select tv).ToList();       
             }
@@ -170,33 +170,42 @@ namespace CoreWCFService
                     double newValue = tag.Driver.ReturnValue(tag.IOAddress);
                     lock (locker)
                     {
+                        
                         int index = tags.FindIndex(x => x == tag);
                         if (tag is AI aiTag)
                         {
-                            if (newValue >= aiTag.LowLimit && newValue <= aiTag.HighLimit)
+                            if (newValue != currentValues[tag.TagName])
+                            {
+                                if (newValue >= aiTag.LowLimit && newValue <= aiTag.HighLimit)
+                                {
+                                    currentValues[tag.TagName] = newValue;
+                                    tags[index] = tag;
+                                    OnTagValueChanged?.Invoke(tag, newValue);
+                                }
+                                foreach (Alarm alarm in aiTag.Alarms)
+                                {
+                                    if ((alarm.Type == AlarmType.high && newValue > alarm.Threshold) || (alarm.Type == AlarmType.low && newValue < alarm.Threshold))
+                                    {
+                                        AddActivatedAlarm(new ActivatedAlarm { Id = activatedAlarms.Count, Alarm = alarm, ActivatedAt = DateTime.Now });
+                                        OnAlarmTriggered?.Invoke(alarm);
+                                    }
+                                }
+                                SaveConfiguration();
+                                SaveTagValueToDB(tag, newValue);
+                            }
+                        }
+                        else
+                        {
+                            newValue = newValue > 0 ? 1 : 0;
+                            if (newValue != currentValues[tag.TagName])
                             {
                                 currentValues[tag.TagName] = newValue;
                                 tags[index] = tag;
                                 OnTagValueChanged?.Invoke(tag, newValue);
+                                SaveConfiguration();
+                                SaveTagValueToDB(tag, newValue);
                             }
-                            foreach (Alarm alarm in aiTag.Alarms)
-                            {
-                                if ((alarm.Type == AlarmType.high && newValue > alarm.Threshold) || (alarm.Type == AlarmType.low && newValue < alarm.Threshold))
-                                {
-                                    AddActivatedAlarm(new ActivatedAlarm { Id = activatedAlarms.Count, Alarm = alarm, ActivatedAt = DateTime.Now });
-                                    OnAlarmTriggered?.Invoke(alarm);
-                                }
-                            }
-                        } 
-                        else
-                        {
-                            newValue = newValue > 0 ? 1 : 0;
-                            currentValues[tag.TagName] = newValue;
-                            tags[index] = tag;
-                            OnTagValueChanged?.Invoke(tag, newValue);
                         }
-                        SaveConfiguration();
-                        SaveTagValueToDB(tag, newValue);
                     }
                     Thread.Sleep(tag.ScanTime);
                 }

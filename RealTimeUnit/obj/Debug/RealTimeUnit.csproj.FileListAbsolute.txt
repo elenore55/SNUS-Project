@@ -1,7 +1,0 @@
-C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\RealTimeUnit\bin\Debug\RealTimeUnit.exe.config
-C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\RealTimeUnit\bin\Debug\RealTimeUnit.exe
-C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\RealTimeUnit\bin\Debug\RealTimeUnit.pdb
-C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\RealTimeUnit\obj\Debug\RealTimeUnit.csproj.CoreCompileInputs.cache
-C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\RealTimeUnit\obj\Debug\RealTimeUnit.exe
-C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\RealTimeUnit\obj\Debug\RealTimeUnit.pdb
-C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\RealTimeUnit\obj\Debug\RealTimeUnit.csprojAssemblyReference.cache
