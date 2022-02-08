@@ -6,7 +6,6 @@ namespace Trending
 {
     public class TrendingCallback : ITrendingServiceCallback
     {
-        // mozda vrijeme dodati
         public void TagValueChanged(InputTag tag, double value)
         {
             Console.WriteLine(tag is AI ? "Analog input" : "Digital input");

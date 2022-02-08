@@ -12,10 +12,10 @@ namespace CoreWCFService
         static List<Tag> tags = new List<Tag>();
         static Dictionary<string, double> currentValues = new Dictionary<string, double>();
         
-        // promijeni putanju
         static List<ActivatedAlarm> activatedAlarms = new List<ActivatedAlarm>();
-        static readonly string scadaConfigPath = @"C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\scadaConfig.xml";
-        static readonly string alarmsLogPath = @"C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\alarmsLog.txt";
+        static readonly string CONFIG_FOLDER = @"C:\ScadaConfig\";
+        static readonly string SCADA_CONFIG_FILE = @"scadaConfig.xml";
+        static readonly string ALARMS_LOG_FILE = @"alarmsLog.txt";
         static readonly object locker = new object();
         static readonly object alarmLock = new object();
         static Dictionary<string, Thread> threads = new Dictionary<string, Thread>();
@@ -267,7 +267,7 @@ namespace CoreWCFService
                 }
                 OnAlarmTriggered?.Invoke(activatedAlarm, value);
                 activatedAlarms.Add(activatedAlarm);
-                using (StreamWriter writer = File.AppendText(alarmsLogPath))
+                using (StreamWriter writer = File.AppendText(GetPath(ALARMS_LOG_FILE)))
                 {
                     writer.WriteLine(activatedAlarm.ToString());
                 }
@@ -286,7 +286,7 @@ namespace CoreWCFService
 
         public static void LoadConfiguration()
         {
-            XElement xmlData = XElement.Load(scadaConfigPath);
+            XElement xmlData = XElement.Load(GetPath(SCADA_CONFIG_FILE));
             var AITags = xmlData.Descendants("AI");
             var AOTags = xmlData.Descendants("AO");
             var DITags = xmlData.Descendants("DI");
@@ -441,10 +441,17 @@ namespace CoreWCFService
                 )
             );
 
-            using (var writer = new StreamWriter(scadaConfigPath))
+            using (var writer = new StreamWriter(GetPath(SCADA_CONFIG_FILE)))
             {
                 writer.Write(tagsXML);
             }
+        }
+
+        private static string GetPath(string fileName)
+        {
+            if (!(Directory.Exists(CONFIG_FOLDER)))
+                Directory.CreateDirectory(CONFIG_FOLDER);
+            return Path.Combine(CONFIG_FOLDER, fileName);
         }
     }
 }
