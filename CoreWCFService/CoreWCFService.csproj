@@ -79,8 +79,8 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActivatedAlarmsContext.cs" />
     <Compile Include="Alarm.cs" />
-    <Compile Include="AlarmContext.cs" />
     <Compile Include="AlarmDisplayService.svc.cs">
       <DependentUpon>AlarmDisplayService.svc</DependentUpon>
     </Compile>
@@ -105,7 +105,7 @@
     <Compile Include="SimulationDriver.cs" />
     <Compile Include="TagProcessing.cs" />
     <Compile Include="Tags.cs" />
-    <Compile Include="TagValueContext.cs" />
+    <Compile Include="TagValuesContext.cs" />
     <Compile Include="TrendingService.svc.cs">
       <DependentUpon>TrendingService.svc</DependentUpon>
     </Compile>

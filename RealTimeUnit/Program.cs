@@ -14,6 +14,7 @@ namespace RealTimeUnit
         private static RSACryptoServiceProvider rsa;
         const string EXPORT_FOLDER = @"C:\public_key\";
         const string PUBLIC_KEY_FILE = @"rsaPublicKey.txt";
+        static EventWaitHandle waitHandle = new EventWaitHandle(true, EventResetMode.AutoReset, "SHARED_BY_ALL_PROCESSES");
 
         static void Main(string[] args)
         {
@@ -73,10 +74,12 @@ namespace RealTimeUnit
             if (!(Directory.Exists(EXPORT_FOLDER)))
                 Directory.CreateDirectory(EXPORT_FOLDER);
             string path = Path.Combine(EXPORT_FOLDER, PUBLIC_KEY_FILE);
+            waitHandle.WaitOne();
             using (StreamWriter writer = new StreamWriter(path))
             {
                 writer.Write(rsa.ToXmlString(false));
             }
+            waitHandle.Set();
         }
 
         private static string EnterStringValue(string name)

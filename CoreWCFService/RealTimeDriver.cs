@@ -13,7 +13,7 @@ namespace CoreWCFService
         {
             if (valuesOnAddresses.ContainsKey(address))
                 return valuesOnAddresses[address];
-            return -1;
+            return 0;
         }
 
         public static void MessageArrived(string message)

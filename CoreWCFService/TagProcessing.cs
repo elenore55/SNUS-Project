@@ -36,7 +36,7 @@ namespace CoreWCFService
 
         public static List<TagValue> GetTagValuesHistory(string tagName)
         {
-            using (var db = new TagValueContext())
+            using (var db = new TagValuesContext())
             {
                 return (from tv in db.TagValues
                         where tv.TagName.Equals(tagName)
@@ -49,8 +49,11 @@ namespace CoreWCFService
         {
             if (currentValues.ContainsKey(tag.TagName))
                 return false;
-            tags.Add(tag);
-            currentValues[tag.TagName] = (tag is OutputTag outTag) ? outTag.InitialValue : 0;
+            lock (tagsLock)
+            {
+                tags.Add(tag);
+                currentValues[tag.TagName] = (tag is OutputTag outTag) ? outTag.InitialValue : 0;
+            }
             if (tag is InputTag inputTag)
             {
                 Thread thread = new Thread(() => { SimulateInputTag(inputTag); });
@@ -67,15 +70,50 @@ namespace CoreWCFService
             {
                 if (tags[i].TagName == tagName)
                 {
-                    tags.RemoveAt(i);
-                    threads[tagName].Abort();
-                    threads.Remove(tagName);
-                    currentValues.Remove(tagName);
-                    SaveConfiguration();
-                    using (var db = new TagValueContext())
+                    lock (tagsLock)
                     {
-                        db.TagValues.Remove(db.TagValues.Single(x => x.TagName == tagName));
-                        db.SaveChanges();
+                        tags.RemoveAt(i);
+                        currentValues.Remove(tagName);
+                    }
+                    if (threads.ContainsKey(tagName))
+                    {
+                        try
+                        {
+                            threads[tagName].Abort();
+                        }
+                        finally
+                        {
+                            threads.Remove(tagName);
+                        }
+                    }
+                    SaveConfiguration();
+                    lock (tagValuesDBLock)
+                    {
+                        using (var db = new TagValuesContext())
+                        {
+                            foreach (TagValue tv in db.TagValues)
+                            {
+                                if (tv.TagName == tagName)
+                                {
+                                    db.TagValues.Remove(tv);
+                                }
+                            }
+                            db.SaveChanges();
+                        }
+                    }
+                    lock (alarmsDBLock)
+                    {
+                        using (var db = new ActivatedAlarmsContext())
+                        {
+                            foreach (ActivatedAlarm alarm in db.ActivatedAlarms)
+                            {
+                                if (alarm.Alarm.TagName == tagName)
+                                {
+                                    db.ActivatedAlarms.Remove(alarm);
+                                }
+                            }
+                            db.SaveChanges();
+                        }
                     }
                     return true;
                 }
@@ -90,7 +128,8 @@ namespace CoreWCFService
                 if (tags[i].TagName == tagName && tags[i] is InputTag inputTag)
                 {
                     inputTag.OnScan = !inputTag.OnScan;
-                    tags[i] = inputTag;
+                    lock (tagsLock) 
+                        tags[i] = inputTag;
                     SaveConfiguration();
                     break;
                 }
@@ -115,7 +154,8 @@ namespace CoreWCFService
             {
                 if (tag.TagName == tagName && tag is OutputTag)
                 {
-                    currentValues[tagName] = value;
+                    lock (tagsLock)
+                        currentValues[tagName] = value;
                     RealTimeDriver.valuesOnAddresses[tag.IOAddress] = value;
                     SaveTagValueToDB(tag, value);
                     return true;
@@ -145,9 +185,12 @@ namespace CoreWCFService
 
         public static bool EnterOutputTagValue(string tagName, double value)
         {
-            if (!currentValues.ContainsKey(tagName))
-                return false;
-            currentValues[tagName] = value;
+            lock (tagsLock)
+            {
+                if (!currentValues.ContainsKey(tagName))
+                    return false;
+                currentValues[tagName] = value;
+            }
             SaveConfiguration();
             return true;
         }
@@ -161,7 +204,8 @@ namespace CoreWCFService
                     if (tags[i] is AI current)
                     {
                         current.AddAlarm(alarm);
-                        tags[i] = current;
+                        lock (tagsLock)
+                            tags[i] = current;
                         SaveConfiguration();
                         return true;
                     }
@@ -237,9 +281,9 @@ namespace CoreWCFService
 
         private static void SaveTagValueToDB(Tag tag, double value)
         {
-            using (var db = new TagValueContext())
+            lock (tagValuesDBLock)
             {
-                lock (tagValuesDBLock)
+                using (var db = new TagValuesContext())
                 {
                     db.TagValues.Add(new TagValue
                     {
@@ -256,9 +300,12 @@ namespace CoreWCFService
 
         public static List<TagValue> GetAllTagValues()
         {
-            using (var db = new TagValueContext())
+            lock (tagValuesDBLock)
             {
-                return db.TagValues.ToList();
+                using (var db = new TagValuesContext())
+                {
+                    return db.TagValues.ToList();
+                }
             }
         }
 
@@ -291,7 +338,7 @@ namespace CoreWCFService
         {
             lock (alarmsDBLock)
             {
-                using (var db = new AlarmContext())
+                using (var db = new ActivatedAlarmsContext())
                 {
                     db.ActivatedAlarms.Add(activatedAlarm);
                     db.SaveChanges();
@@ -335,7 +382,6 @@ namespace CoreWCFService
                         });
                     }
                     tags.Add(ait);
-
                     currentValues[tag.Attribute("tagName").Value] = 0;
                 }
             }
@@ -354,7 +400,6 @@ namespace CoreWCFService
                         LowLimit = double.Parse(tag.Attribute("lowLimit").Value),
                         HighLimit = double.Parse(tag.Attribute("highLimit").Value)
                     });
-
                     currentValues[tag.Attribute("tagName").Value] = int.Parse(tag.Attribute("initialValue").Value);
                 }
             }
@@ -374,7 +419,6 @@ namespace CoreWCFService
                     if (tag.Attribute("driver").Value == "SimulationDriver") dit.Driver = new SimulationDriver();
                     else dit.Driver = new RealTimeDriver();
                     tags.Add(dit);
-
                     currentValues[tag.Attribute("tagName").Value] = 0;
                 }
             }
@@ -390,7 +434,6 @@ namespace CoreWCFService
                         IOAddress = tag.Attribute("IOAddress").Value,
                         InitialValue = int.Parse(tag.Attribute("initialValue").Value)
                     });
-
                     currentValues[tag.Attribute("tagName").Value] = int.Parse(tag.Attribute("initialValue").Value);
                 }
             }

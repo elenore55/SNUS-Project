@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using System.Security.Cryptography;
 using System.IO;
+using System.Threading;
 
 namespace CoreWCFService
 {
@@ -10,6 +11,7 @@ namespace CoreWCFService
         private static RSACryptoServiceProvider rsa;
         const string IMPORT_FOLDER = @"C:\public_key\";
         const string PUBLIC_KEY_FILE = @"rsaPublicKey.txt";
+        static EventWaitHandle waitHandle = new EventWaitHandle(true, EventResetMode.AutoReset, "SHARED_BY_ALL_PROCESSES");
 
         public bool SendMessage(string message, byte[] signature)
         {
@@ -34,6 +36,7 @@ namespace CoreWCFService
             FileInfo fi = new FileInfo(path);
             if (fi.Exists)
             {
+                waitHandle.WaitOne();
                 using (StreamReader reader = new StreamReader(path))
                 {
                     csp = new CspParameters();
@@ -41,6 +44,7 @@ namespace CoreWCFService
                     string publicKeyText = reader.ReadToEnd();
                     rsa.FromXmlString(publicKeyText);
                 }
+                waitHandle.Set();
             }
         }
 
