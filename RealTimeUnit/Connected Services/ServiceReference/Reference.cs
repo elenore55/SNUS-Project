@@ -20,6 +20,18 @@ namespace RealTimeUnit.ServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRTUService/SendMessage", ReplyAction="http://tempuri.org/IRTUService/SendMessageResponse")]
         System.Threading.Tasks.Task<bool> SendMessageAsync(string message, byte[] signature);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRTUService/IsAddressTaken", ReplyAction="http://tempuri.org/IRTUService/IsAddressTakenResponse")]
+        bool IsAddressTaken(string address);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRTUService/IsAddressTaken", ReplyAction="http://tempuri.org/IRTUService/IsAddressTakenResponse")]
+        System.Threading.Tasks.Task<bool> IsAddressTakenAsync(string address);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRTUService/IsIdTaken", ReplyAction="http://tempuri.org/IRTUService/IsIdTakenResponse")]
+        bool IsIdTaken(string id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRTUService/IsIdTaken", ReplyAction="http://tempuri.org/IRTUService/IsIdTakenResponse")]
+        System.Threading.Tasks.Task<bool> IsIdTakenAsync(string id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -55,6 +67,22 @@ namespace RealTimeUnit.ServiceReference {
         
         public System.Threading.Tasks.Task<bool> SendMessageAsync(string message, byte[] signature) {
             return base.Channel.SendMessageAsync(message, signature);
+        }
+        
+        public bool IsAddressTaken(string address) {
+            return base.Channel.IsAddressTaken(address);
+        }
+        
+        public System.Threading.Tasks.Task<bool> IsAddressTakenAsync(string address) {
+            return base.Channel.IsAddressTakenAsync(address);
+        }
+        
+        public bool IsIdTaken(string id) {
+            return base.Channel.IsIdTaken(id);
+        }
+        
+        public System.Threading.Tasks.Task<bool> IsIdTakenAsync(string id) {
+            return base.Channel.IsIdTakenAsync(id);
         }
     }
 }

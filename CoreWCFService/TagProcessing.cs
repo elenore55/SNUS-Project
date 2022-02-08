@@ -224,7 +224,7 @@ namespace CoreWCFService
                             }
                         }
                     }
-                    Thread.Sleep(tag.ScanTime);
+                    Thread.Sleep(tag.ScanTime * 1000);
                 }
             }
         }

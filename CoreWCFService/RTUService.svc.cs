@@ -22,6 +22,11 @@ namespace CoreWCFService
             return false;
         }
 
+        public bool IsAddressTaken(string address)
+        {
+            return RealTimeDriver.IsAddressTaken(address);
+        }
+
         private static void ImportPublicKey()
         {
             string path = Path.Combine(IMPORT_FOLDER, PUBLIC_KEY_FILE);
@@ -48,6 +53,11 @@ namespace CoreWCFService
                 deformatter.SetHashAlgorithm("SHA256");
                 return deformatter.VerifySignature(hashValue, signature);
             }
+        }
+
+        public bool IsIdTaken(string id)
+        {
+            return RealTimeDriver.IsIdTaken(id);
         }
     }
 }

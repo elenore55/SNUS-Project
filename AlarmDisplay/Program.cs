@@ -15,7 +15,7 @@ namespace AlarmDisplay
                 for (int i = 0; i < alarm.Alarm.Priority; i++)
                 {
                     Console.WriteLine($"Alarm for: {alarm.Alarm.TagName}\tThreshold: {alarm.Alarm.Threshold}\t" +
-                        $"Priority: {alarm.Alarm.Priority}\t Activated at: {alarm.ActivatedAt}\t For: {value}");
+                        $"Priority: {alarm.Alarm.Priority}\t Activated at: {alarm.ActivatedAt}\t For: {Math.Round(value, 2)}");
                 }
             }
         }

@@ -18,10 +18,22 @@ namespace RealTimeUnit
         static void Main(string[] args)
         {
             RTUServiceClient proxy = new RTUServiceClient();
-            string id = EnterStringValue("ID");
+            string id;
+            while (true)
+            {
+                id = EnterStringValue("ID");
+                if (!proxy.IsIdTaken(id)) break;
+                Console.WriteLine("ID je zauzet.");
+            }
             double lowLimit = EnterLimit("Donja");
             double highLimit = EnterLimit("Gornja");
-            string address = EnterStringValue("Adresa");  // provjera
+            string address;
+            while (true)
+            {
+                address = EnterStringValue("Adresa");
+                if (!proxy.IsAddressTaken(address)) break;
+                Console.WriteLine("Adresa je zauzeta.");
+            }
 
             Random rnd = new Random();
             double value = rnd.NextDouble() * (highLimit - lowLimit) + lowLimit;
@@ -33,8 +45,8 @@ namespace RealTimeUnit
                 byte[] signature = SignMessage(message);
                 ExportPublicKey();
                 bool success = proxy.SendMessage(message, signature);
-                Console.WriteLine(success);
-                Thread.Sleep(seconds);
+                Console.WriteLine(success ? "Poruka uspešno poslata" : "Poruka nije poslata");
+                Thread.Sleep(seconds * 1000);
             }
         }
 

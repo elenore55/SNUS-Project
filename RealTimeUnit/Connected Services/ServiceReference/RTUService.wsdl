@@ -12,16 +12,54 @@
   <wsdl:message name="IRTUService_SendMessage_OutputMessage">
     <wsdl:part name="parameters" element="tns:SendMessageResponse" />
   </wsdl:message>
+  <wsdl:message name="IRTUService_IsAddressTaken_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsAddressTaken" />
+  </wsdl:message>
+  <wsdl:message name="IRTUService_IsAddressTaken_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsAddressTakenResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRTUService_IsIdTaken_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsIdTaken" />
+  </wsdl:message>
+  <wsdl:message name="IRTUService_IsIdTaken_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsIdTakenResponse" />
+  </wsdl:message>
   <wsdl:portType name="IRTUService">
     <wsdl:operation name="SendMessage">
       <wsdl:input wsaw:Action="http://tempuri.org/IRTUService/SendMessage" message="tns:IRTUService_SendMessage_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IRTUService/SendMessageResponse" message="tns:IRTUService_SendMessage_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsAddressTaken">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRTUService/IsAddressTaken" message="tns:IRTUService_IsAddressTaken_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRTUService/IsAddressTakenResponse" message="tns:IRTUService_IsAddressTaken_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsIdTaken">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRTUService/IsIdTaken" message="tns:IRTUService_IsIdTaken_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRTUService/IsIdTakenResponse" message="tns:IRTUService_IsIdTaken_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IRTUService" type="tns:IRTUService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="SendMessage">
       <soap:operation soapAction="http://tempuri.org/IRTUService/SendMessage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsAddressTaken">
+      <soap:operation soapAction="http://tempuri.org/IRTUService/IsAddressTaken" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsIdTaken">
+      <soap:operation soapAction="http://tempuri.org/IRTUService/IsIdTaken" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

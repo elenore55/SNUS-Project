@@ -12,5 +12,11 @@ namespace CoreWCFService
     {
         [OperationContract]
         bool SendMessage(string message, byte[] signature);
+
+        [OperationContract]
+        bool IsAddressTaken(string address);
+
+        [OperationContract]
+        bool IsIdTaken(string id);
     }
 }
