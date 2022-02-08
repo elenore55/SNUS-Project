@@ -21,7 +21,7 @@ namespace RealTimeUnit
             string id = EnterStringValue("ID");
             double lowLimit = EnterLimit("Donja");
             double highLimit = EnterLimit("Gornja");
-            string address = EnterStringValue("Adresa");
+            string address = EnterStringValue("Adresa");  // provjera
 
             Random rnd = new Random();
             double value = rnd.NextDouble() * (highLimit - lowLimit) + lowLimit;

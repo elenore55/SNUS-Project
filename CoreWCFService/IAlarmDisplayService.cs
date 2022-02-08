@@ -12,6 +12,6 @@ namespace CoreWCFService
     public interface IAlarmDisplayCallback
     {
         [OperationContract (IsOneWay = true)]
-        void AlarmTriggered(Alarm alarm);
+        void AlarmTriggered(ActivatedAlarm alarm, double value);
     }
 }

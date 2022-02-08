@@ -102,7 +102,6 @@ namespace DatabaseManager
                     break;
                 case "4":
                     AddDOTag(proxy, token);
-                    AddDOTag(proxy, token);
                     break;
                 default:
                     Console.WriteLine(INPUT_ERROR_MSG);
@@ -354,6 +353,7 @@ namespace DatabaseManager
                 Threshold = EnterAlarmThreshold(),
                 TagName = tagName
             };
+            // ispisi poruku za false
             proxy.AddAlarm(alarm, token);
         }
 

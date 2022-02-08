@@ -15,6 +15,83 @@ namespace AlarmDisplay.ServiceReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ActivatedAlarm", Namespace="http://schemas.datacontract.org/2004/07/CoreWCFService")]
+    [System.SerializableAttribute()]
+    public partial class ActivatedAlarm : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime ActivatedAtField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private AlarmDisplay.ServiceReference.Alarm AlarmField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime ActivatedAt {
+            get {
+                return this.ActivatedAtField;
+            }
+            set {
+                if ((this.ActivatedAtField.Equals(value) != true)) {
+                    this.ActivatedAtField = value;
+                    this.RaisePropertyChanged("ActivatedAt");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public AlarmDisplay.ServiceReference.Alarm Alarm {
+            get {
+                return this.AlarmField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AlarmField, value) != true)) {
+                    this.AlarmField = value;
+                    this.RaisePropertyChanged("Alarm");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Alarm", Namespace="http://schemas.datacontract.org/2004/07/CoreWCFService")]
     [System.SerializableAttribute()]
     public partial class Alarm : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -132,7 +209,7 @@ namespace AlarmDisplay.ServiceReference {
     public interface IAlarmDisplayServiceCallback {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IAlarmDisplayService/AlarmTriggered")]
-        void AlarmTriggered(AlarmDisplay.ServiceReference.Alarm alarm);
+        void AlarmTriggered(AlarmDisplay.ServiceReference.ActivatedAlarm alarm, double value);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]

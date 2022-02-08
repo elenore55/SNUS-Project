@@ -21,7 +21,7 @@ namespace CoreWCFService
         public void ChangeOnScanValue(string tagName, string token)
         {
             if (UserProcessing.IsAuthenticatedUser(token))
-                TagProcessing.GetOnScanValue(tagName);
+                TagProcessing.ChangeOnScanValue(tagName);
         }
 
         public Dictionary<string, double> GetCurrentOutputValues(string token)

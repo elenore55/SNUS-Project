@@ -6,11 +6,17 @@ namespace AlarmDisplay
 {
     class AlarmDisplayCallback : IAlarmDisplayServiceCallback
     {
-        public void AlarmTriggered(Alarm alarm)
+        private readonly object consoleLock = new object();
+
+        public void AlarmTriggered(ActivatedAlarm alarm, double value)
         {
-            for (int i = 0; i < alarm.Priority; i++)
+            lock (consoleLock)
             {
-                Console.WriteLine($"Alarm for: {alarm.TagName}\tThreshold: {alarm.Threshold}\tPriority: {alarm.Priority}");
+                for (int i = 0; i < alarm.Alarm.Priority; i++)
+                {
+                    Console.WriteLine($"Alarm for: {alarm.Alarm.TagName}\tThreshold: {alarm.Alarm.Threshold}\t" +
+                        $"Priority: {alarm.Alarm.Priority}\t Activated at: {alarm.ActivatedAt}\t For: {value}");
+                }
             }
         }
     }

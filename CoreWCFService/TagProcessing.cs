@@ -12,15 +12,17 @@ namespace CoreWCFService
         static List<Tag> tags = new List<Tag>();
         static Dictionary<string, double> currentValues = new Dictionary<string, double>();
         
+        // promijeni putanju
         static List<ActivatedAlarm> activatedAlarms = new List<ActivatedAlarm>();
         static readonly string scadaConfigPath = @"C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\scadaConfig.xml";
         static readonly string alarmsLogPath = @"C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\alarmsLog.txt";
         static readonly object locker = new object();
         static readonly object alarmLock = new object();
+        static Dictionary<string, Thread> threads = new Dictionary<string, Thread>();
 
         public delegate void TagValueChangedDelegate(InputTag tag, double value);
         public static event TagValueChangedDelegate OnTagValueChanged;
-        public delegate void AlarmTriggeredDelegate(Alarm alarm);
+        public delegate void AlarmTriggeredDelegate(ActivatedAlarm alarm, double value);
         public static event AlarmTriggeredDelegate OnAlarmTriggered;
 
         public static List<ActivatedAlarm> GetActivatedAlarms()
@@ -45,6 +47,12 @@ namespace CoreWCFService
                 return false;
             tags.Add(tag);
             currentValues[tag.TagName] = (tag is OutputTag outTag) ? outTag.InitialValue : 0;
+            if (tag is InputTag inputTag)
+            {
+                Thread thread = new Thread(() => { SimulateInputTag(inputTag); });
+                threads[inputTag.TagName] = thread;
+                thread.Start();
+            }
             SaveConfiguration();
             return true;
         }
@@ -56,6 +64,8 @@ namespace CoreWCFService
                 if (tags[i].TagName == tagName)
                 {
                     tags.RemoveAt(i);
+                    threads[tagName].Abort();
+                    threads.Remove(tagName);
                     currentValues.Remove(tagName);
                     SaveConfiguration();
                     using (var db = new TagValueContext())
@@ -118,7 +128,15 @@ namespace CoreWCFService
 
         public static Dictionary<string, double> GetCurrentValues()
         {
-            return currentValues;
+            Dictionary<string, double> retVal = new Dictionary<string, double>();
+            foreach (Tag tag in tags)
+            {
+                if (tag is OutputTag outTag)
+                {
+                    retVal[tag.TagName] = currentValues[tag.TagName];
+                }
+            }
+            return retVal;
         }
 
         public static bool EnterOutputTagValue(string tagName, double value)
@@ -155,8 +173,8 @@ namespace CoreWCFService
                 if (tags[i] is InputTag inputTag)
                 {
                     Thread thread = new Thread(() => { SimulateInputTag(inputTag); });
+                    threads[inputTag.TagName] = thread;
                     thread.Start();
-                    // SimulateInputTag(inputTag);
                 }
             }
         }
@@ -186,8 +204,7 @@ namespace CoreWCFService
                                 {
                                     if ((alarm.Type == AlarmType.high && newValue > alarm.Threshold) || (alarm.Type == AlarmType.low && newValue < alarm.Threshold))
                                     {
-                                        AddActivatedAlarm(new ActivatedAlarm { Id = activatedAlarms.Count, Alarm = alarm, ActivatedAt = DateTime.Now });
-                                        OnAlarmTriggered?.Invoke(alarm);
+                                        AddActivatedAlarm(new ActivatedAlarm { Id = activatedAlarms.Count, Alarm = alarm, ActivatedAt = DateTime.Now }, newValue);
                                     }
                                 }
                                 SaveConfiguration();
@@ -236,10 +253,19 @@ namespace CoreWCFService
             }
         }
 
-        private static void AddActivatedAlarm(ActivatedAlarm activatedAlarm)
+        private static void AddActivatedAlarm(ActivatedAlarm activatedAlarm, double value)
         {
             lock (alarmLock)
             {
+                if (activatedAlarms.Count > 0)
+                {
+                    foreach (ActivatedAlarm existing in activatedAlarms)
+                    {
+                        var diffSeconds = (activatedAlarm.ActivatedAt - existing.ActivatedAt).TotalSeconds;
+                        if (existing.Alarm.TagName == activatedAlarm.Alarm.TagName && diffSeconds < 5) return;
+                    }    
+                }
+                OnAlarmTriggered?.Invoke(activatedAlarm, value);
                 activatedAlarms.Add(activatedAlarm);
                 using (StreamWriter writer = File.AppendText(alarmsLogPath))
                 {
@@ -253,14 +279,8 @@ namespace CoreWCFService
         {
             using (var db = new AlarmContext())
             {
-                try
-                {
-                    db.ActivatedAlarms.Add(activatedAlarm);
-                    db.SaveChanges();
-                }
-                catch(Exception)
-                {
-                }
+                db.ActivatedAlarms.Add(activatedAlarm);
+                db.SaveChanges();
             }
         }
 
