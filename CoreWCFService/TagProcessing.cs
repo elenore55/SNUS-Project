@@ -269,7 +269,7 @@ namespace CoreWCFService
                 foreach (ActivatedAlarm existing in activatedAlarms)
                 {
                     var diffSeconds = (activatedAlarm.ActivatedAt - existing.ActivatedAt).TotalSeconds;
-                    if (existing.Alarm.TagName == activatedAlarm.Alarm.TagName && diffSeconds < 5) return;
+                    if (existing.Alarm.TagName == activatedAlarm.Alarm.TagName && existing.Alarm.Type == activatedAlarm.Alarm.Type && diffSeconds < 5) return;
                 }    
             }
             OnAlarmTriggered?.Invoke(activatedAlarm, value);
@@ -277,9 +277,9 @@ namespace CoreWCFService
             {
                 activatedAlarms.Add(activatedAlarm);
             }
-            using (StreamWriter writer = File.AppendText(GetPath(ALARMS_LOG_FILE)))
+            lock (alarmsLogLock)
             {
-                lock (alarmsLogLock)
+                using (StreamWriter writer = File.AppendText(GetPath(ALARMS_LOG_FILE)))
                 {
                     writer.WriteLine(activatedAlarm.ToString());
                 }
@@ -289,9 +289,9 @@ namespace CoreWCFService
 
         private static void SaveAlarmToDB(ActivatedAlarm activatedAlarm)
         {
-            using (var db = new AlarmContext())
+            lock (alarmsDBLock)
             {
-                lock (alarmsDBLock)
+                using (var db = new AlarmContext())
                 {
                     db.ActivatedAlarms.Add(activatedAlarm);
                     db.SaveChanges();
@@ -455,10 +455,9 @@ namespace CoreWCFService
                     )
                 )
             );
-
-            using (var writer = new StreamWriter(GetPath(SCADA_CONFIG_FILE)))
+            lock (scadaConfigLock)
             {
-                lock (scadaConfigLock)
+                using (var writer = new StreamWriter(GetPath(SCADA_CONFIG_FILE)))
                 {
                     writer.Write(tagsXML);
                 }

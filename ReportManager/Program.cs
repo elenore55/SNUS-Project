@@ -39,7 +39,7 @@ namespace ReportManager
                     case 6:
                         Console.Write("Naziv taga >> ");
                         string tagName = Console.ReadLine();
-                        DisplayTagValues(proxy.GetTagValues(tagName).ToList());  // max quota exceeded
+                        DisplayTagValues(proxy.GetTagValues(tagName).ToList());
                         break;
                 }
             }

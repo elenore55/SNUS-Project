@@ -353,8 +353,8 @@ namespace DatabaseManager
                 Threshold = EnterAlarmThreshold(),
                 TagName = tagName
             };
-            // ispisi poruku za false
-            proxy.AddAlarm(alarm, token);
+            bool success = proxy.AddAlarm(alarm, token);
+            Console.WriteLine(success ? "Alarm uspešno dodat" : "Alarm nije dodat");
         }
 
         private static AlarmType EnterAlarmType()

@@ -36,16 +36,16 @@ namespace RealTimeUnit
             }
 
             Random rnd = new Random();
-            double value = rnd.NextDouble() * (highLimit - lowLimit) + lowLimit;
             int seconds = EnterSeconds();
             while (true)
             {
+                double value = rnd.NextDouble() * (highLimit - lowLimit) + lowLimit;
                 string message = $"id:{id},value:{value},address:{address}";
                 CreateAsmKeys();
                 byte[] signature = SignMessage(message);
                 ExportPublicKey();
                 bool success = proxy.SendMessage(message, signature);
-                Console.WriteLine(success ? "Poruka uspešno poslata" : "Poruka nije poslata");
+                Console.WriteLine(success ? $"Poruka uspešno poslata" : "Poruka nije poslata");
                 Thread.Sleep(seconds * 1000);
             }
         }
