@@ -4,3 +4,4 @@ C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\AlarmDispl
 C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\AlarmDisplay\obj\Debug\AlarmDisplay.csproj.CoreCompileInputs.cache
 C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\AlarmDisplay\obj\Debug\AlarmDisplay.exe
 C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\AlarmDisplay\obj\Debug\AlarmDisplay.pdb
+C:\Users\Milica\Desktop\Fakultet\Semestar5\SNUS\Projekat\ProjekatSNUS\AlarmDisplay\obj\Debug\AlarmDisplay.csprojAssemblyReference.cache

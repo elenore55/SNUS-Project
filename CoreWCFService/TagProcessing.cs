@@ -16,8 +16,12 @@ namespace CoreWCFService
         static readonly string CONFIG_FOLDER = @"C:\ScadaConfig\";
         static readonly string SCADA_CONFIG_FILE = @"scadaConfig.xml";
         static readonly string ALARMS_LOG_FILE = @"alarmsLog.txt";
-        static readonly object locker = new object();
-        static readonly object alarmLock = new object();
+        static readonly object tagsLock = new object();
+        static readonly object tagValuesDBLock = new object();
+        static readonly object activatedAlarmsLock = new object();
+        static readonly object scadaConfigLock = new object();
+        static readonly object alarmsLogLock = new object();
+        static readonly object alarmsDBLock = new object();
         static Dictionary<string, Thread> threads = new Dictionary<string, Thread>();
 
         public delegate void TagValueChangedDelegate(InputTag tag, double value);
@@ -185,43 +189,45 @@ namespace CoreWCFService
             {
                 if (tag.OnScan)
                 {
-                    double newValue = tag.Driver.ReturnValue(tag.IOAddress);
-                    lock (locker)
+                    double newValue = tag.Driver.ReturnValue(tag.IOAddress); 
+                    int index = tags.FindIndex(x => x == tag);
+                    if (tag is AI aiTag)
                     {
-                        
-                        int index = tags.FindIndex(x => x == tag);
-                        if (tag is AI aiTag)
+                        if (newValue != currentValues[tag.TagName])
                         {
-                            if (newValue != currentValues[tag.TagName])
+                            if (newValue >= aiTag.LowLimit && newValue <= aiTag.HighLimit)
                             {
-                                if (newValue >= aiTag.LowLimit && newValue <= aiTag.HighLimit)
+                                lock (tagsLock)
                                 {
                                     currentValues[tag.TagName] = newValue;
                                     tags[index] = tag;
-                                    OnTagValueChanged?.Invoke(tag, newValue);
                                 }
-                                foreach (Alarm alarm in aiTag.Alarms)
-                                {
-                                    if ((alarm.Type == AlarmType.high && newValue > alarm.Threshold) || (alarm.Type == AlarmType.low && newValue < alarm.Threshold))
-                                    {
-                                        AddActivatedAlarm(new ActivatedAlarm { Id = activatedAlarms.Count, Alarm = alarm, ActivatedAt = DateTime.Now }, newValue);
-                                    }
-                                }
-                                SaveConfiguration();
-                                SaveTagValueToDB(tag, newValue);
+                                OnTagValueChanged?.Invoke(tag, newValue);
                             }
+                            foreach (Alarm alarm in aiTag.Alarms)
+                            {
+                                if ((alarm.Type == AlarmType.high && newValue > alarm.Threshold) || (alarm.Type == AlarmType.low && newValue < alarm.Threshold))
+                                {
+                                    AddActivatedAlarm(new ActivatedAlarm { Id = activatedAlarms.Count, Alarm = alarm, ActivatedAt = DateTime.Now }, newValue);
+                                }
+                            }
+                            SaveConfiguration();
+                            SaveTagValueToDB(tag, newValue);
                         }
-                        else
+                    }
+                    else
+                    {
+                        newValue = newValue > 0 ? 1 : 0;
+                        if (newValue != currentValues[tag.TagName])
                         {
-                            newValue = newValue > 0 ? 1 : 0;
-                            if (newValue != currentValues[tag.TagName])
+                            lock (tagsLock)
                             {
                                 currentValues[tag.TagName] = newValue;
                                 tags[index] = tag;
                                 OnTagValueChanged?.Invoke(tag, newValue);
-                                SaveConfiguration();
-                                SaveTagValueToDB(tag, newValue);
                             }
+                            SaveConfiguration();
+                            SaveTagValueToDB(tag, newValue);
                         }
                     }
                     Thread.Sleep(tag.ScanTime * 1000);
@@ -233,15 +239,18 @@ namespace CoreWCFService
         {
             using (var db = new TagValueContext())
             {
-                db.TagValues.Add(new TagValue
+                lock (tagValuesDBLock)
                 {
-                    Id = db.TagValues.Count(),
-                    TagType = tag.GetType().Name,
-                    TagName = tag.TagName,
-                    Value = value,
-                    ArrivedAt = DateTime.Now
-                });
-                db.SaveChanges();
+                    db.TagValues.Add(new TagValue
+                    {
+                        Id = db.TagValues.Count(),
+                        TagType = tag.GetType().Name,
+                        TagName = tag.TagName,
+                        Value = value,
+                        ArrivedAt = DateTime.Now
+                    });
+                    db.SaveChanges();
+                }
             }
         }
 
@@ -255,32 +264,38 @@ namespace CoreWCFService
 
         private static void AddActivatedAlarm(ActivatedAlarm activatedAlarm, double value)
         {
-            lock (alarmLock)
+            if (activatedAlarms.Count > 0)
             {
-                if (activatedAlarms.Count > 0)
+                foreach (ActivatedAlarm existing in activatedAlarms)
                 {
-                    foreach (ActivatedAlarm existing in activatedAlarms)
-                    {
-                        var diffSeconds = (activatedAlarm.ActivatedAt - existing.ActivatedAt).TotalSeconds;
-                        if (existing.Alarm.TagName == activatedAlarm.Alarm.TagName && diffSeconds < 5) return;
-                    }    
-                }
-                OnAlarmTriggered?.Invoke(activatedAlarm, value);
+                    var diffSeconds = (activatedAlarm.ActivatedAt - existing.ActivatedAt).TotalSeconds;
+                    if (existing.Alarm.TagName == activatedAlarm.Alarm.TagName && diffSeconds < 5) return;
+                }    
+            }
+            OnAlarmTriggered?.Invoke(activatedAlarm, value);
+            lock (activatedAlarmsLock)
+            {
                 activatedAlarms.Add(activatedAlarm);
-                using (StreamWriter writer = File.AppendText(GetPath(ALARMS_LOG_FILE)))
+            }
+            using (StreamWriter writer = File.AppendText(GetPath(ALARMS_LOG_FILE)))
+            {
+                lock (alarmsLogLock)
                 {
                     writer.WriteLine(activatedAlarm.ToString());
                 }
-                SaveAlarmToDB(activatedAlarm);
             }
+            SaveAlarmToDB(activatedAlarm);
         }
 
         private static void SaveAlarmToDB(ActivatedAlarm activatedAlarm)
         {
             using (var db = new AlarmContext())
             {
-                db.ActivatedAlarms.Add(activatedAlarm);
-                db.SaveChanges();
+                lock (alarmsDBLock)
+                {
+                    db.ActivatedAlarms.Add(activatedAlarm);
+                    db.SaveChanges();
+                }
             }
         }
 
@@ -443,7 +458,10 @@ namespace CoreWCFService
 
             using (var writer = new StreamWriter(GetPath(SCADA_CONFIG_FILE)))
             {
-                writer.Write(tagsXML);
+                lock (scadaConfigLock)
+                {
+                    writer.Write(tagsXML);
+                }
             }
         }
 
