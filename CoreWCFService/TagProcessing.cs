@@ -31,7 +31,13 @@ namespace CoreWCFService
 
         public static List<ActivatedAlarm> GetActivatedAlarms()
         {
-            return activatedAlarms;
+            lock (activatedAlarmsLock)
+            {
+                using (var db = new ActivatedAlarmsContext())
+                {
+                    return db.ActivatedAlarms.ToList();
+                }
+            }
         }
 
         public static List<TagValue> GetTagValuesHistory(string tagName)
